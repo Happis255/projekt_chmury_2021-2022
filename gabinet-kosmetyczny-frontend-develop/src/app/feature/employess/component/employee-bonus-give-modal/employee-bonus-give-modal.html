@@ -1,0 +1,44 @@
+<h2 mat-dialog-title>{{ 'employess.give-bonus' | translate }}</h2>
+<mat-dialog-content class="mat-typography mb-4">
+    <form [formGroup]="workerBonusGiveForm" novalidate>
+        <div class="col">
+            <div class="row">
+                <mat-form-field class="m-2 form-field">
+                    <mat-label>
+                        {{ 'account.name' | translate }}
+                    </mat-label>
+                    <input matInput type="text" formControlName="name">
+                </mat-form-field>
+                <mat-form-field class="m-2 form-field">
+                    <mat-label>
+                        {{ 'account.surname' | translate }}
+                    </mat-label>
+                    <input matInput type="text" formControlName="surname">
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field class="m-2 w-100">
+                    <mat-label>
+                        {{ 'employess.bonus' | translate }}
+                    </mat-label>
+                    <input matInput type="number" formControlName="bonus">
+                    <mat-error *ngIf="workerBonusGiveForm.controls['bonus'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>
+        {{ "shared.cancel" | translate }}
+    </button>
+    <button 
+        (click)="sumbit()" 
+        [disabled]="!workerBonusGiveForm.valid"
+        mat-raised-button color="primary" 
+        [mat-dialog-close]="true">
+        {{ "shared.save" | translate }}
+    </button>
+</mat-dialog-actions>

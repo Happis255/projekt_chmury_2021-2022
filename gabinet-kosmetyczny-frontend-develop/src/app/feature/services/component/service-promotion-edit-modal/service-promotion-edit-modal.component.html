@@ -1,0 +1,105 @@
+<h2 mat-dialog-title>{{ "services-promotion.edit-promotion" | translate }}</h2>
+<mat-dialog-content class="mat-typography mb-2">
+    <form [formGroup]="servicePromotionForm">
+        <div class="col">
+            <div class="row">
+                <mat-form-field class="m-2 form-field">
+                    <mat-label>
+                        {{ "services-promotion.name" | translate }}
+                    </mat-label>
+                    <input matInput type="text" formControlName="name">
+                    <mat-error *ngIf="servicePromotionForm.controls['name'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="m-2 form-field">
+                    <mat-label>
+                        {{ "services-promotion.description" | translate }}
+                    </mat-label>
+                    <input matInput type="text" formControlName="description">
+                    <mat-error *ngIf="servicePromotionForm.controls['description'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field class="m-2 form-field">
+                    <mat-label>
+                        {{ "services-promotion.price" | translate }}
+                    </mat-label>
+                    <input matInput type="number" formControlName="price">
+                    <mat-error *ngIf="servicePromotionForm.controls['price'].hasError('min')">
+                        <strong>{{ 'services.bigger-than-zero' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="m-2 form-field">
+                    <mat-label>
+                        {{ "services-promotion.precent" | translate }}
+                    </mat-label>
+                    <input matInput type="text" formControlName="precent">
+                    <mat-error *ngIf="servicePromotionForm.controls['precent'].hasError('min')">
+                        <strong>{{ 'services.bigger-than-zero' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field class="m-2 form-date-field">
+                    <mat-label>
+                        {{ 'shared.from' | translate }}
+                    </mat-label>
+                    <input matInput [max]="servicePromotionForm.value.to" [matDatepicker]="picker1"
+                        formControlName="from">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                    <mat-error *ngIf="servicePromotionForm.controls['from'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="m-2 form-date-field">
+                    <mat-label>
+                        {{ 'shared.to' | translate }}
+                    </mat-label>
+                    <input matInput [min]="servicePromotionForm.value.from" [matDatepicker]="picker2"
+                        formControlName="to">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                    <mat-error *ngIf="servicePromotionForm.controls['to'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field class="m-2 w-100">
+                    <mat-label>
+                        {{ "services-promotion.service" | translate }}
+                    </mat-label>
+                    <mat-select formControlName="servicesList" multiple [compareWith]="compareObjects" [disableOptionCentering]="true">
+                        <mat-select-trigger>
+                            {{servicePromotionForm.value.servicesList?.length > 0 ? servicePromotionForm.value.servicesList[0].name : ''}}
+                            <span *ngIf="servicePromotionForm.value.servicesList?.length > 1" class="mini-info">
+                                ( +{{servicePromotionForm.value.servicesList.length - 1}}
+                                {{ 'shared.others' | translate }} )
+                            </span>
+                        </mat-select-trigger>
+                        <mat-option *ngFor="let service of serviceListRef" [value]="service">
+                            {{service.type}} - {{service.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="servicePromotionForm.controls['servicesList'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>
+        {{ "shared.cancel" | translate }}
+    </button>
+    <button
+        [disabled]="!servicePromotionForm.valid || (!servicePromotionForm.value.price && !servicePromotionForm.value.precent)"
+        mat-raised-button (click)="sumbit()" color="primary" [mat-dialog-close]="true">
+        {{ "shared.save" | translate }}
+    </button>
+</mat-dialog-actions>

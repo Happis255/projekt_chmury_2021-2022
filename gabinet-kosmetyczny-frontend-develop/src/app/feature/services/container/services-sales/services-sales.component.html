@@ -1,0 +1,300 @@
+<div class="calendar">
+    <div class="row">
+        <div class="col text-left icon">
+            <button mat-mini-fab color="white" class="ml-5 no-shadow"
+                matTooltip="{{ 'services-promotion.previous-week' | translate }}" (click)="removeSevenDays()">
+                <mat-icon>keyboard_arrow_left</mat-icon>
+            </button>
+        </div>
+        <div class="col ">
+            <div class="row">
+                <div class="w-100 text-center wrapper">
+                    <div class="hidden-date-wrapper">
+                        <mat-form-field class="hidden-date-picker">
+                            <input matInput [matDatepicker]="picker" [matDatepickerFilter]="myFilter"
+                                [formControl]="dateFormControl">
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <button mat-button color="white" class="no-shadow" *ngIf="dateController.monthTitle"
+                        matTooltip="{{ 'services-promotion.change-date' | translate }}" (click)="picker.open()">
+                        <span class="calendar-title">
+                            {{ 'months.' + dateController.monthTitle.toLowerCase() | translate }}
+                        </span>
+                    </button>
+                    <button mat-mini-fab color="white" class="no-shadow" (click)="openAddPromotion()"
+                        matTooltip="{{ 'services-promotion.add-new' | translate }}">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col text-right icon">
+            <button mat-mini-fab color="white" class="mr-5 no-shadow"
+                matTooltip="{{ 'services-promotion.next-week' | translate }}" (click)="addSevenDays()">
+                <mat-icon>keyboard_arrow_right</mat-icon>
+            </button>
+        </div>
+    </div>
+    <mat-divider>
+    </mat-divider>
+    <div class="row">
+        <div class="m-2 col">
+            <div class="row">
+                <div class="text-center w-100">
+                    {{ 'date.monday' | translate }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="text-center w-100">
+                    {{ dateController.mondayDate }}
+                </div>
+            </div>
+        </div>
+        <div class="m-2 col">
+            <div class="row">
+                <div class="text-center w-100">
+                    {{ 'date.tuesday' | translate }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="text-center w-100">
+                    {{ dateController.tuesdayDate }}
+                </div>
+            </div>
+        </div>
+        <div class="m-2 col">
+            <div class="row">
+                <div class="text-center w-100">
+                    {{ 'date.wednesday' | translate }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="text-center w-100">
+                    {{ dateController.wednesdayDate }}
+                </div>
+            </div>
+        </div>
+        <div class="m-2 col">
+            <div class="row">
+                <div class="text-center w-100">
+                    {{ 'date.thursday' | translate }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="text-center w-100">
+                    {{ dateController.thursdayDate }}
+                </div>
+            </div>
+        </div>
+        <div class="m-2 col">
+            <div class="row">
+                <div class="text-center w-100">
+                    {{ 'date.friday' | translate }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="text-center w-100">
+                    {{ dateController.fridayDate }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <!-- monday -->
+        <ng-container *ngFor="let servicePromotion of weekPromotionsService.mondayServicePromotions">
+            <div class="row">
+                <mat-card [ngClass]="{'not-selected ': checkIfNotSelected(servicePromotion.uuid)}" class="m-3 w-100">
+                    <mat-card-header class="w-100">
+                        <mat-card-title>
+                            <mat-icon class="mr-2" (click)="select(servicePromotion.uuid)">local_offer</mat-icon>
+                            <span>{{ servicePromotion.name }}</span>
+                        </mat-card-title>
+                    </mat-card-header>
+                    <mat-divider></mat-divider>
+                    <mat-card-content>
+                        <ng-container *ngIf="servicePromotion.price">
+                            {{ servicePromotion.price }} PLN <br>
+                        </ng-container>
+                        <ng-container *ngIf="servicePromotion.precent">
+                            {{ servicePromotion.precent }} % <br>
+                        </ng-container>
+                        {{ servicePromotion.description }}
+                    </mat-card-content>
+                    <mat-card-actions align="end">
+                        <button mat-icon-button matTooltip="{{ 'services-promotion.view-promotion' | translate }}"
+                            (click)="openViewPromotion(servicePromotion)">
+                            <mat-icon>visibility</mat-icon>
+                        </button>
+                        <button mat-icon-button matTooltip="{{ 'services-promotion.edit-promotion' | translate }}"
+                            (click)="openEditPromotion(servicePromotion)">
+                            <mat-icon>create</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" matTooltip="{{ 'shared.delete' | translate }}"
+                            (click)="removePromotion(servicePromotion.uuid)">
+                            <mat-icon>delete_forever</mat-icon>
+                        </button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </ng-container>
+    </div>
+    <div class="col">
+        <!-- tuesday -->
+        <ng-container *ngFor="let servicePromotion of weekPromotionsService.tuesdayServicePromotions">
+            <div class="row">
+                <mat-card [ngClass]="{'not-selected ': checkIfNotSelected(servicePromotion.uuid)}" class="m-3 w-100">
+                    <mat-card-header class="w-100">
+                        <mat-card-title>
+                            <mat-icon class="mr-2" (click)="select(servicePromotion.uuid)">local_offer</mat-icon>
+                            <span>{{ servicePromotion.name }}</span>
+                        </mat-card-title>
+                    </mat-card-header>
+                    <mat-divider></mat-divider>
+                    <mat-card-content>
+                        <ng-container *ngIf="servicePromotion.price">
+                            {{ servicePromotion.price }} PLN <br>
+                        </ng-container>
+                        <ng-container *ngIf="servicePromotion.precent">
+                            {{ servicePromotion.precent }} % <br>
+                        </ng-container>
+                        {{ servicePromotion.description }}
+                    </mat-card-content>
+                    <mat-card-actions align="end">
+                        <button mat-icon-button matTooltip="{{ 'services-promotion.view-promotion' | translate }}"
+                            (click)="openViewPromotion(servicePromotion)">
+                            <mat-icon>visibility</mat-icon>
+                        </button>
+                        <button mat-icon-button matTooltip="{{ 'services-promotion.edit-promotion' | translate }}"
+                            (click)="openEditPromotion(servicePromotion)">
+                            <mat-icon>create</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" matTooltip="{{ 'shared.delete' | translate }}"
+                            (click)="removePromotion(servicePromotion.uuid)">
+                            <mat-icon>delete_forever</mat-icon>
+                        </button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </ng-container>
+    </div>
+    <div class="col">
+        <!-- wednesday -->
+        <ng-container *ngFor="let servicePromotion of weekPromotionsService.wednesdayServicePromotions">
+            <div class="row">
+                <mat-card [ngClass]="{'not-selected ': checkIfNotSelected(servicePromotion.uuid)}" class="m-3 w-100">
+                    <mat-card-header class="w-100">
+                        <mat-card-title>
+                            <mat-icon class="mr-2" (click)="select(servicePromotion.uuid)">local_offer</mat-icon>
+                            <span>{{ servicePromotion.name }}</span>
+                        </mat-card-title>
+                    </mat-card-header>
+                    <mat-divider></mat-divider>
+                    <mat-card-content>
+                        <ng-container *ngIf="servicePromotion.price">
+                            {{ servicePromotion.price }} PLN <br>
+                        </ng-container>
+                        <ng-container *ngIf="servicePromotion.precent">
+                            {{ servicePromotion.precent }} % <br>
+                        </ng-container>
+                        {{ servicePromotion.description }}
+                    </mat-card-content>
+                    <mat-card-actions align="end">
+                        <button mat-icon-button matTooltip="{{ 'services-promotion.view-promotion' | translate }}"
+                            (click)="openViewPromotion(servicePromotion)">
+                            <mat-icon>visibility</mat-icon>
+                        </button>
+                        <button mat-icon-button matTooltip="{{ 'services-promotion.edit-promotion' | translate }}"
+                            (click)="openEditPromotion(servicePromotion)">
+                            <mat-icon>create</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" matTooltip="{{ 'shared.delete' | translate }}"
+                            (click)="removePromotion(servicePromotion.uuid)">
+                            <mat-icon>delete_forever</mat-icon>
+                        </button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </ng-container>
+    </div>
+    <div class="col">
+        <!-- thursday -->
+        <ng-container *ngFor="let servicePromotion of weekPromotionsService.thursdayServicePromotions">
+            <div class="row">
+                <mat-card [ngClass]="{'not-selected ': checkIfNotSelected(servicePromotion.uuid)}" class="m-3 w-100">
+                    <mat-card-header class="w-100">
+                        <mat-card-title>
+                            <mat-icon class="mr-2" (click)="select(servicePromotion.uuid)">local_offer</mat-icon>
+                            <span>{{ servicePromotion.name }}</span>
+                        </mat-card-title>
+                    </mat-card-header>
+                    <mat-divider></mat-divider>
+                    <mat-card-content>
+                        <ng-container *ngIf="servicePromotion.price">
+                            {{ servicePromotion.price }} PLN <br>
+                        </ng-container>
+                        <ng-container *ngIf="servicePromotion.precent">
+                            {{ servicePromotion.precent }} % <br>
+                        </ng-container>
+                        {{ servicePromotion.description }}
+                    </mat-card-content>
+                    <mat-card-actions align="end">
+                        <button mat-icon-button matTooltip="{{ 'services-promotion.view-promotion' | translate }}"
+                            (click)="openViewPromotion(servicePromotion)">
+                            <mat-icon>visibility</mat-icon>
+                        </button>
+                        <button mat-icon-button matTooltip="{{ 'services-promotion.edit-promotion' | translate }}"
+                            (click)="openEditPromotion(servicePromotion)">
+                            <mat-icon>create</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" matTooltip="{{ 'shared.delete' | translate }}"
+                            (click)="removePromotion(servicePromotion.uuid)">
+                            <mat-icon>delete_forever</mat-icon>
+                        </button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </ng-container>
+    </div>
+    <div class="col">
+        <!-- friday -->
+        <ng-container *ngFor="let servicePromotion of weekPromotionsService.fridayServicePromotions">
+            <div class="row">
+                <mat-card [ngClass]="{'not-selected ': checkIfNotSelected(servicePromotion.uuid)}" class="m-3 w-100">
+                    <mat-card-header class="w-100">
+                        <mat-card-title>
+                            <mat-icon class="mr-2" (click)="select(servicePromotion.uuid)">local_offer</mat-icon>
+                            <span>{{ servicePromotion.name }}</span>
+                        </mat-card-title>
+                    </mat-card-header>
+                    <mat-divider></mat-divider>
+                    <mat-card-content>
+                        <ng-container *ngIf="servicePromotion.price">
+                            {{ servicePromotion.price }} PLN <br>
+                        </ng-container>
+                        <ng-container *ngIf="servicePromotion.precent">
+                            {{ servicePromotion.precent }} % <br>
+                        </ng-container>
+                        {{ servicePromotion.description }}
+                    </mat-card-content>
+                    <mat-card-actions align="end">
+                        <button mat-icon-button matTooltip="{{ 'services-promotion.view-promotion' | translate }}"
+                            (click)="openViewPromotion(servicePromotion)">
+                            <mat-icon>visibility</mat-icon>
+                        </button>
+                        <button mat-icon-button matTooltip="{{ 'services-promotion.edit-promotion' | translate }}"
+                            (click)="openEditPromotion(servicePromotion)">
+                            <mat-icon>create</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" matTooltip="{{ 'shared.delete' | translate }}"
+                            (click)="removePromotion(servicePromotion.uuid)">
+                            <mat-icon>delete_forever</mat-icon>
+                        </button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </ng-container>
+    </div>
+</div>

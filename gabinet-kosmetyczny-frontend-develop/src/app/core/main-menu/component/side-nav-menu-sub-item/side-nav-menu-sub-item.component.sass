@@ -1,0 +1,37 @@
+.side-nav-item 
+    border-top: none 
+    color: #020202 
+    font-size: 0.9375rem
+    font-weight: 400
+    line-height: 1.25rem
+
+    &-a
+        background-color: transparent
+        border-radius: 0
+        font-size: 0.8125rem
+        font-weight: 400
+        line-height: 1.5rem
+        padding: 0.75rem 1rem
+        display: flex
+        text-decoration: none
+        align-items: center
+
+    &-name
+        flex: 1 0 auto
+        margin-left: 1rem
+
+.selected
+    color: white
+    background: linear-gradient(to right, #020202  50%, white 50%)
+    background-size: 200% 100%
+    background-position: left bottom
+    transition: 0.5s
+
+.not-selected:hover
+    color: #afd4ff
+
+.not-selected
+    color: #020202
+    background: linear-gradient(to right, #020202  50%, white 50%)
+    background-size: 200% 100%
+    background-position: right bottom

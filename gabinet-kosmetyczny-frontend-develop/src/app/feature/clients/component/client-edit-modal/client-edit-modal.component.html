@@ -1,0 +1,131 @@
+<h2 mat-dialog-title>{{ 'client.edit-client-data' | translate }}</h2>
+<mat-dialog-content class="mat-typography mb-4">
+    <form [formGroup]="clientAccountData">
+        <div class="col">
+            <div class="row">
+                <mat-form-field class="m-2 w-100">
+                    <mat-label>
+                        {{ 'core.login-page.e-mail' | translate }}
+                    </mat-label>
+                    <input [autocomplete]="false" matInput type="email" formControlName="email">
+                    <mat-error *ngIf="clientAccountData.controls['email'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                    <mat-error *ngIf="!clientAccountData.controls['email'].hasError('required') &&
+                            clientAccountData.controls['email'].hasError('alreadyTaken')">
+                        <strong>{{ 'shared.email_taken' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field class="m-2 form-field">
+                    <mat-label>
+                        {{ 'core.login-page.password' | translate }}
+                    </mat-label>
+                    <input [autocomplete]="false" matInput type="password" formControlName="password">
+                    <mat-error *ngIf="clientAccountData.controls['password'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                    <mat-error *ngIf="!clientAccountData.controls['password'].hasError('required') &&
+                                        clientAccountData.controls['password'].hasError('diffrentPasswords')">
+                        <strong>{{ 'shared.same_passwords' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="m-2 form-field">
+                    <mat-label>
+                        {{ 'core.login-page.repeat-password' | translate }}
+                    </mat-label>
+                    <input [autocomplete]="false" matInput type="password" formControlName="secondPassword">
+                    <mat-error *ngIf="clientAccountData.controls['secondPassword'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                    <mat-error *ngIf="!clientAccountData.controls['secondPassword'].hasError('required') &&
+                                        clientAccountData.controls['secondPassword'].hasError('diffrentPasswords')">
+                        <strong>{{ 'shared.same_passwords' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field class="m-2 form-field">
+                    <mat-label>
+                        {{ 'account.name' | translate }}
+                    </mat-label>
+                    <input matInput type="text" formControlName="name">
+                    <mat-error *ngIf="clientAccountData.controls['name'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="m-2 form-field">
+                    <mat-label>
+                        {{ 'account.surname' | translate }}
+                    </mat-label>
+                    <input matInput type="text" formControlName="surname">
+                    <mat-error *ngIf="clientAccountData.controls['surname'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field class="m-2 form-date-field">
+                    <mat-label>
+                        {{ 'account.birthday' | translate }}
+                    </mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="birthday">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="clientAccountData.controls['birthday'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="m-2 form-field">
+                    <mat-label>
+                        {{ 'account.phone' | translate }}
+                    </mat-label>
+                    <input matInput type="number" formControlName="phone">
+                    <mat-error *ngIf="clientAccountData.controls['phone'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field class="m-2 form-field">
+                    <mat-label>
+                        {{ 'account.street' | translate }}
+                    </mat-label>
+                    <input matInput type="text" formControlName="street">
+                    <mat-error *ngIf="clientAccountData.controls['street'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="m-2 form-field">
+                    <mat-label>
+                        {{ 'account.townCode' | translate }}
+                    </mat-label>
+                    <input matInput type="text" formControlName="code">
+                    <mat-error *ngIf="clientAccountData.controls['code'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field class="m-2 w-100">
+                    <mat-label>
+                        {{ 'account.town' | translate }}
+                    </mat-label>
+                    <input matInput type="text" formControlName="town">
+                    <mat-error *ngIf="clientAccountData.controls['town'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>
+        {{ "shared.cancel" | translate }}
+    </button>
+    <button [disabled]="!clientAccountData.valid" (click)="submit()" mat-raised-button color="primary">
+        {{ "shared.save" | translate }}
+    </button>
+</mat-dialog-actions>
