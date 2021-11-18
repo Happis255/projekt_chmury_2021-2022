@@ -9,6 +9,8 @@ System wspomagający pracę gabinetu kosmetycznego składa się z bazy danych od
 - Backend + Baza, AWS Cognito   - Czyżewski Eryk
 - Backend + Baza, API Gateway   - Michał Kubita
 - Backend + Baza, Docker, EC2   - Hubert Wąsik
+ 
+### Tablica Sprint
 https://happis255.atlassian.net/jira/software/projects/BPC/boards/5
 
 ### Wykorzystane technologie
