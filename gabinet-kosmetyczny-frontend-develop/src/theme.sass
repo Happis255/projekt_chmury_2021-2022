@@ -1,0 +1,13 @@
+@import '~@angular/material/theming'
+@include mat-core()
+    
+$my-app-primary: mat-palette($mat-gray, 900)
+$my-app-accent:  mat-palette($mat-indigo, 400)
+$my-app-warn:    mat-palette($mat-pink, A400)
+$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn)
+$custom-typography: mat-typography-config($font-family: 'Gilroy')
+@include mat-core($custom-typography)
+@include angular-material-theme($my-app-theme)
+@include mat-base-typography($custom-typography)
+@include mat-checkbox-typography($custom-typography)
+@include angular-material-typography($custom-typography)

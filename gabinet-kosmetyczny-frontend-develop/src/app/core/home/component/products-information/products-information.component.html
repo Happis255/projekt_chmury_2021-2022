@@ -1,0 +1,98 @@
+<div class="card-information p-4">
+    <div class="title-information">
+        <mat-icon class="mr-2">sanitizer</mat-icon>
+        <div class="title">
+            {{ "home.products" | translate }}
+        </div>
+    </div>
+    <mat-tab-group mat-align-tabs="start">
+        <mat-tab label='{{ "home.product-for-use" | translate }}'>
+            <table class="w-100" mat-table [dataSource]="tableUseSource" #MatSortProductsForUse="matSort" matSort>
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        {{ 'home.tables.name' | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let productUse">
+                        {{ productUse.name }}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="description">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        {{ 'home.tables.description' | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let productUse">
+                        {{ productUse.description }}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="price">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        {{ 'home.tables.price' | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let productUse">
+                        {{ productUse.price }} PLN
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="amount">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        {{ 'home.tables.amount' | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let productUse">
+                        {{ productUse.amount }}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="code">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        {{ 'home.tables.code' | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let productUse">
+                        {{ productUse.code }}
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="tableUseDisplayedColumns sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: tableUseDisplayedColumns;"></tr>
+            </table>
+            <mat-paginator #MatPagProductsForUse="matPaginator" [pageSizeOptions]="[4, 7, 10]" showFirstLastButtons>
+            </mat-paginator>
+        </mat-tab>
+        <mat-tab label='{{ "home.products-for-sell" | translate }}'>
+            <table class="w-100" mat-table [dataSource]="tableSellSource" #MatSortProductsForSell="matSort" matSort>
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        {{ 'home.tables.name' | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let productSell">
+                        {{ productSell.name }}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="description">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        {{ 'home.tables.description' | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let productSell">
+                        {{ productSell.description }}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="price">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        {{ 'home.tables.price' | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let productSell">
+                        {{ productSell.price }} PLN
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="amount">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        {{ 'home.tables.amount' | translate }}
+                    </th>
+                    <td mat-cell *matCellDef="let productSell">
+                        {{ productSell.amount }}
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="tableSellDisplayedColumns sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: tableSellDisplayedColumns;"></tr>
+            </table>
+            <mat-paginator #MatPagProductsForSell="matPaginator" [pageSizeOptions]="[4, 7, 10]" showFirstLastButtons>
+            </mat-paginator>
+        </mat-tab>
+    </mat-tab-group>
+</div>

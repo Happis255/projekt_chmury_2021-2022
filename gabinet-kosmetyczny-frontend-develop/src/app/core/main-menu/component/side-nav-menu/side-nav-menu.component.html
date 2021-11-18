@@ -1,0 +1,9 @@
+<div class="side-nav" [ngClass]="{'side-nav--small': isSmall}">
+    <ul class="side-nav-items">
+        <mat-accordion>
+        <ng-container *ngFor="let sideMenuElement of sideMenuElements">
+        <app-side-nav-menu-item [isSmall]="isSmall" [sideMenuElement]="sideMenuElement"></app-side-nav-menu-item>
+        </ng-container>
+        </mat-accordion>
+    </ul>
+</div>

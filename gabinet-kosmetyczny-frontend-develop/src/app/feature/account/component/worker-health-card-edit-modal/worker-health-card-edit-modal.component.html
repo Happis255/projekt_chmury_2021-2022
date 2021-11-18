@@ -1,0 +1,181 @@
+<h2 *ngIf="editMode" mat-dialog-title>{{ "account.edit-health-card" | translate }}</h2>
+<h2 *ngIf="!editMode" mat-dialog-title>{{ 'account.view-health-card' | translate }}</h2>
+<mat-dialog-content class="mat-typography mb-2">
+    <form [formGroup]="workerHealthCardForm" novalidate>
+        <div class="col">
+            <div class="row">
+                <mat-form-field class="m-2 form-field">
+                    <mat-label>
+                        {{ "account.pacemaker" | translate }}
+                    </mat-label>
+                    <mat-select formControlName="pacemaker">
+                        <mat-option value=""></mat-option>
+                        <mat-option value="true">{{ "true" | translate }}</mat-option>
+                        <mat-option value="false">{{ "false" | translate }}</mat-option>
+                      </mat-select>
+                    <mat-error *ngIf="workerHealthCardForm.controls['pacemaker'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="m-2 form-field">
+                    <mat-label>
+                        {{ "account.hermophilia" | translate }}
+                    </mat-label>
+                    <mat-select formControlName="hermophilia">
+                        <mat-option value=""></mat-option>
+                        <mat-option value="true">{{ "true" | translate }}</mat-option>
+                        <mat-option value="false">{{ "false" | translate }}</mat-option>
+                      </mat-select>
+                    <mat-error *ngIf="workerHealthCardForm.controls['hermophilia'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field class="m-2 form-date-field">
+                    <mat-label>
+                        {{ "account.psoriasis" | translate }}
+                    </mat-label>
+                    <mat-select formControlName="psoriasis">
+                        <mat-option value=""></mat-option>
+                        <mat-option value="true">{{ "true" | translate }}</mat-option>
+                        <mat-option value="false">{{ "false" | translate }}</mat-option>
+                      </mat-select>
+                    <mat-error *ngIf="workerHealthCardForm.controls['psoriasis'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="m-2 form-field">
+                    <mat-label>
+                        {{ "account.weakness" | translate }}
+                    </mat-label>
+                    <mat-select formControlName="weakness">
+                        <mat-option value=""></mat-option>
+                        <mat-option value="true">{{ "true" | translate }}</mat-option>
+                        <mat-option value="false">{{ "false" | translate }}</mat-option>
+                      </mat-select>
+                    <mat-error *ngIf="workerHealthCardForm.controls['weakness'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field class="m-2 form-field">
+                    <mat-label>
+                        {{ "account.discoloration" | translate }}
+                    </mat-label>
+                    <mat-select formControlName="discoloration">
+                        <mat-option value=""></mat-option>
+                        <mat-option value="true">{{ "true" | translate }}</mat-option>
+                        <mat-option value="false">{{ "false" | translate }}</mat-option>
+                      </mat-select>
+                    <mat-error *ngIf="workerHealthCardForm.controls['discoloration'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="m-2 form-field">
+                    <mat-label>
+                        {{ "account.infectious-diseases" | translate }}
+                    </mat-label>
+                    <mat-select formControlName="infectiousDiseases">
+                        <mat-option value=""></mat-option>
+                        <mat-option value="true">{{ "true" | translate }}</mat-option>
+                        <mat-option value="false">{{ "false" | translate }}</mat-option>
+                      </mat-select>
+                    <mat-error *ngIf="workerHealthCardForm.controls['infectiousDiseases'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field class="m-2 form-field">
+                    <mat-label>
+                        {{ "account.blood-circulation-disorders" | translate }}
+                    </mat-label>
+                    <mat-select formControlName="bloodCirculationDisorders">
+                        <mat-option value=""></mat-option>
+                        <mat-option value="true">{{ "true" | translate }}</mat-option>
+                        <mat-option value="false">{{ "false" | translate }}</mat-option>
+                      </mat-select>
+                    <mat-error *ngIf="workerHealthCardForm.controls['bloodCirculationDisorders'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="m-2 form-field">
+                    <mat-label>
+                        {{ "account.herpes" | translate }}
+                    </mat-label>
+                    <mat-select formControlName="herpes">
+                        <mat-option value=""></mat-option>
+                        <mat-option value="true">{{ "true" | translate }}</mat-option>
+                        <mat-option value="false">{{ "false" | translate }}</mat-option>
+                      </mat-select>
+                    <mat-error *ngIf="workerHealthCardForm.controls['herpes'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field class="m-2 form-field">
+                    <mat-label>
+                        {{ "account.fever" | translate }}
+                    </mat-label>
+                    <mat-select formControlName="fever">
+                        <mat-option value=""></mat-option>
+                        <mat-option value="true">{{ "true" | translate }}</mat-option>
+                        <mat-option value="false">{{ "false" | translate }}</mat-option>
+                      </mat-select>
+                    <mat-error *ngIf="workerHealthCardForm.controls['fever'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="m-2 form-field">
+                    <mat-label>
+                        {{ "account.pregnancy" | translate }}
+                    </mat-label>
+                    <mat-select formControlName="pregnancy">
+                        <mat-option value=""></mat-option>
+                        <mat-option value="true">{{ "true" | translate }}</mat-option>
+                        <mat-option value="false">{{ "false" | translate }}</mat-option>
+                      </mat-select>
+                    <mat-error *ngIf="workerHealthCardForm.controls['pregnancy'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field class="m-2 form-field-last">
+                    <mat-label>
+                        {{ "account.allergies" | translate }}
+                    </mat-label>
+                    <input matInput type="text" formControlName="allergies">
+                    <mat-error *ngIf="workerHealthCardForm.controls['allergies'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <ng-container *ngIf="editMode">
+        <button mat-button mat-dialog-close>
+            {{ "shared.cancel" | translate }}
+        </button>
+        <button 
+            (click)="sumbit()" 
+            [disabled]="!workerHealthCardForm.valid"
+            mat-raised-button color="primary" 
+            [mat-dialog-close]="true">
+            {{ "shared.save" | translate }}
+        </button>
+    </ng-container>
+    <ng-container *ngIf="!editMode">
+        <button 
+            (click)="sumbit()" 
+            mat-raised-button color="primary" 
+            [mat-dialog-close]="true">
+            {{ "shared.close" | translate }}
+        </button>
+    </ng-container>
+</mat-dialog-actions>
