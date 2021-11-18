@@ -4,11 +4,11 @@ System wspomagający pracę gabinetu kosmetycznego składa się z bazy danych od
 
 ### Skład zespołu
 
-AWS, RDS                      - Anastasiia Afanasieva
-Frontend, Docker, EC2         - Bartosz Kowalski
-Backend + Baza, AWS Cognito   - Czyżewski Eryk
-Backend + Baza, API Gateway   - Michał Kubita
-Backend + Baza, Docker, EC2   - Hubert Wąsik
+- AWS, RDS                      - Anastasiia Afanasieva
+- Frontend, Docker, EC2         - Bartosz Kowalski
+- Backend + Baza, AWS Cognito   - Czyżewski Eryk
+- Backend + Baza, API Gateway   - Michał Kubita
+- Backend + Baza, Docker, EC2   - Hubert Wąsik
 
 ### Wykorzystane technologie
 
