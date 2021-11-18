@@ -49,3 +49,16 @@ https://happis255.atlassian.net/jira/software/projects/BPC/boards/5
 - Możliwość wprowadzania zmian przez klienta na swoim koncie,
 - Możliwość zarządzania nadchodzącą wizytą przez klienta oraz informowanie wiadomością mailową o zmianie statusu,
 - Możliwość korzystania z aplikacji w języku angielskim bądź polskim oraz móc wprowadzać w łatwy sposób nowy pakiet językowy.
+
+### Diagramy
+###### Diagram wstępnej architektury systemu
+![Diagram wstępnej architektury systemu](https://github.com/Happis255/projekt_chmury_2021-2022/blob/master/diagramy/wstepna_architektura_systemu.PNG)
+
+###### Diagram przypadków użycia
+![Diagram przypadków użycia](https://github.com/Happis255/projekt_chmury_2021-2022/blob/master/diagramy/diagram_przypadkow_uzycia.PNG)
+
+###### Diagram wstępnej bazy danych
+![Diagram wstępnej bazy danych](https://github.com/Happis255/projekt_chmury_2021-2022/blob/master/diagramy/wstepny_diagram_bd.PNG)
+
+###### Diagram DFD
+![Diagram DFD](https://github.com/Happis255/projekt_chmury_2021-2022/blob/master/diagramy/diagram_dfd.PNG)
