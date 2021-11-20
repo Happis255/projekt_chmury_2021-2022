@@ -1,0 +1,23 @@
+<mat-card-content>
+    <form [formGroup]="loginForm">
+        <mat-form-field class="login-form">
+            <input matInput type="email" formControlName="email"
+                placeholder="{{ 'core.login-page.e-mail' | translate }}" required>
+        </mat-form-field>
+        <mat-form-field class="login-form">
+            <input matInput type="password" formControlName="password"
+                placeholder="{{ 'core.login-page.password' | translate }}" required>
+        </mat-form-field>
+    </form>
+</mat-card-content>
+<div *ngIf="incorrect" class="row w-100 error">
+    <small>{{ 'core.login-page.incorrect' | translate }}</small>
+</div>
+<mat-card-actions>
+    <div class="mat-card-login-buttons">
+        <button class="login-button" mat-raised-button color="primary" (click)="onSubmit()">
+            {{ 'core.login-page.log-in' | translate }}
+        </button>
+        <button class="password-remind-button-step" matStepperNext>{{ 'core.login-page.remind-password' | translate }}</button>
+    </div>
+</mat-card-actions>

@@ -1,0 +1,85 @@
+<h2 mat-dialog-title>{{ 'visits.add-visit' | translate }}</h2>
+<mat-dialog-content class="mat-typography mb-4">
+    <form [formGroup]="serviceForm">
+        <div class="col">
+            <div class="row">
+                <mat-form-field class="m-2 form-field">
+                    <mat-label>
+                        {{ "visits.client" | translate }}
+                    </mat-label>
+                    <mat-select formControlName="client">
+                        <mat-option value=""></mat-option>
+                        <mat-option value="new-client">+ {{ "visits.new-client" | translate }}</mat-option>
+                        <mat-option *ngFor="let client of clientDatabase" [value]="client.clientUuid"> {{client.name}} {{client.surname}}</mat-option>
+                      </mat-select>
+                    <mat-error *ngIf="serviceForm.controls['client'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="m-2 form-date-field">
+                    <mat-label>
+                        {{ 'visits.day' | translate }}
+                    </mat-label>
+                    <input [min]="minDay" matInput [matDatepicker]="picker" formControlName="day" [matDatepickerFilter]="myFilter">
+                    <mat-datepicker-toggle  matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="serviceForm.controls['day'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field class="m-2 w-100">
+                    <mat-label>
+                        {{ "visits.service" | translate }}
+                    </mat-label>
+                    <mat-select formControlName="service">
+                        <mat-option value=""></mat-option>
+                        <ng-container *ngFor="let service of serviceDatabase" >
+                            <mat-option [value]="service.uuid">{{service.type}} - {{service.name}}</mat-option>
+                        </ng-container>
+                      </mat-select>
+                    <mat-error *ngIf="serviceForm.controls['service'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field class="m-2 form-field">
+                    <mat-label>
+                        {{ "visits.worker" | translate }}
+                    </mat-label>
+                    <mat-select formControlName="worker">
+                        <mat-option value=""></mat-option>
+                        <mat-option *ngFor="let workerHour of workerHourAvaibility" value="{{workerHour.workerUuid}}">{{workerHour.workerName}} {{workerHour.workerSurname}}</mat-option>
+                      </mat-select>
+                    <mat-error *ngIf="serviceForm.controls['worker'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="m-2 form-field">
+                    <mat-label>
+                        {{ "visits.hour" | translate }}
+                    </mat-label>
+                    <mat-select formControlName="hour">
+                        <mat-option value=""></mat-option>
+                        <ng-container *ngFor="let hour of workerHourList">
+                            <mat-option [disabled]="hour.booked || !hour.canfit" [value]="hour">{{hour.hours}}</mat-option>
+                        </ng-container>
+                      </mat-select>
+                    <mat-error *ngIf="serviceForm.controls['hour'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>
+        {{ "shared.cancel" | translate }}
+    </button>
+    <button (click)="sumbit()" mat-raised-button color="primary" [disabled]="!serviceForm.valid">
+        {{ "shared.save" | translate }}
+    </button>
+</mat-dialog-actions>

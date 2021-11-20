@@ -1,0 +1,59 @@
+<app-database-numbers-information
+    [workersAmount]="workersAmount"
+    [clientsAmount]="clientsAmount"
+    [visitsAmount]="visitsAmount"
+    [visitsThisMonthAmount]="visitsThisMonthAmount">
+</app-database-numbers-information>
+<div class="row" *ngIf="loggedUser.role === 'ADMIN'">
+    <div class="col">
+        <ng-container *ngIf="incomeAmountWorkerData && incomeAmountMonthsData">
+            <app-income-dashboard-information 
+                [incomeAmountWorkerData]="incomeAmountWorkerData"
+                [incomeAmountMonthsData]="incomeAmountMonthsData">
+        </app-income-dashboard-information>
+        </ng-container>
+    </div>
+    <div class="col">
+        <ng-container *ngIf="systemNotifications && userMesseges && clientsMesseges">
+            <app-notification-information
+            [systemNotifications]="systemNotifications"
+            [userMesseges]="userMesseges"
+            [clientsMesseges]="clientsMesseges"
+            (seenEmitter)="markAsSeen($event)"
+            (deleteEmitter)="deleteEmitter($event)">
+        </app-notification-information>
+        </ng-container>
+    </div>
+</div>
+<div class="row" *ngIf="loggedUser.role === 'WORKER'">
+    <div class="col">
+        <ng-container *ngIf="userMesseges && clientsMesseges">
+            <app-notification-information
+            [isWorker]="true"
+            [userMesseges]="userMesseges"
+            [clientsMesseges]="clientsMesseges"
+            (seenEmitter)="markAsSeen($event)"
+            (deleteEmitter)="deleteEmitter($event)">
+        </app-notification-information>
+        </ng-container>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <ng-container *ngIf="productForUse && productForSell">
+            <app-products-information
+            [productForUse]="productForUse"
+            [productForSell]="productForSell">
+        </app-products-information>
+        </ng-container>
+    </div>
+    <div class="col">
+        <ng-container *ngIf="reportsTab && trashesReportsTab && machineReportsTab">
+            <app-raports-information
+            [reportsTab]="reportsTab"
+            [trashesReportsTab]="trashesReportsTab"
+            [machineReportsTab]="machineReportsTab">
+            </app-raports-information>
+        </ng-container>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+<h2 mat-dialog-title>{{ 'raports.add-raport' | translate }}</h2>
+<mat-dialog-content class="mat-typography mb-4">
+    <form [formGroup]="raportForm">
+        <div class="col">
+            <div class="row">
+                <mat-form-field class="m-2 form-field">
+                    <mat-label>
+                        {{ 'shared.title' | translate }}
+                    </mat-label>
+                    <input [autocomplete]="false" matInput type="text" formControlName="title">
+                    <mat-error *ngIf="raportForm.controls['title'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="m-2 form-field">
+                    <mat-label>
+                        {{ 'shared.type' | translate }}
+                    </mat-label>
+                    <mat-select formControlName="type" [disableOptionCentering]="true">
+                        <mat-option [value]="null"></mat-option>
+                        <mat-option [value]="'KONTROLA_STACJI_SANITARNO_EPIDEMIOLOGICZNEJ'">
+                            {{ 'enums.KONTROLA_STACJI_SANITARNO_EPIDEMIOLOGICZNEJ' | translate }}
+                        </mat-option>
+                        <mat-option [value]="'SPORALA'">
+                            {{ 'enums.SPORALA' | translate }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="raportForm.controls['type'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field class="m-2 w-100">
+                    <mat-label>
+                        {{ 'shared.description' | translate }}
+                    </mat-label>
+                    <textarea matInput type="text" formControlName="description"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>
+        {{ "shared.cancel" | translate }}
+    </button>
+    <button 
+        [disabled]="!raportForm.valid"
+        mat-raised-button (click)="sumbit()"
+        color="primary"
+        [mat-dialog-close]="true">
+        {{ "shared.save" | translate }}
+    </button>
+</mat-dialog-actions>

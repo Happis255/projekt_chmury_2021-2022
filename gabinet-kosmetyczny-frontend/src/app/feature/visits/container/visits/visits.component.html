@@ -1,0 +1,480 @@
+<div class="calendar">
+    <div class="row">
+        <div class="col text-left icon">
+            <button mat-mini-fab color="white" class="ml-5 no-shadow"
+                matTooltip="{{ 'visits.previous-week' | translate }}" (click)="removeSevenDays()">
+                <mat-icon>keyboard_arrow_left</mat-icon>
+            </button>
+            <mat-form-field class="form-field">
+                <mat-label>
+                    {{ "visits.worker" | translate }}
+                </mat-label>
+                <mat-select [formControl]="workerListControl" [disableOptionCentering]="true" (valueChange)="loadSelecetedWorker($event)">
+                    <ng-container *ngFor="let worker of workerList">
+                        <mat-option [value]="worker">{{worker.name}} {{worker.surname}}</mat-option>
+                    </ng-container>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col ">
+            <div class="row">
+                <div class="w-100 text-center wrapper">
+                    <div class="hidden-date-wrapper">
+                        <mat-form-field class="hidden-date-picker">
+                            <input matInput [matDatepicker]="picker" [matDatepickerFilter]="myFilter"
+                                [formControl]="dateFormControl">
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <button mat-button color="white" class="no-shadow" *ngIf="dateController.monthTitle"
+                        matTooltip="{{ 'visits.change-date' | translate }}" (click)="picker.open()">
+                        <span class="calendar-title">
+                            {{ 'months.' + dateController.monthTitle.toLowerCase() | translate }}
+                        </span>
+                    </button>
+                    <button mat-mini-fab color="white" class="no-shadow" (click)="addVisit()"
+                        matTooltip="{{ 'visits.add-visit' | translate }}">
+                        <mat-icon>person_add</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col text-right icon">
+            <button mat-mini-fab color="white" class="mr-5 no-shadow" matTooltip="{{ 'visits.next-week' | translate }}"
+                (click)="addSevenDays()">
+                <mat-icon>keyboard_arrow_right</mat-icon>
+            </button>
+        </div>
+    </div>
+    <mat-divider>
+    </mat-divider>
+    <div class="row">
+        <div class="m-2 col">
+            <div class="row">
+                <div class="text-center w-100">
+                    {{ 'date.monday' | translate }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="text-center w-100">
+                    {{ dateController.mondayDate }}
+                </div>
+            </div>
+        </div>
+        <div class="m-2 col">
+            <div class="row">
+                <div class="text-center w-100">
+                    {{ 'date.tuesday' | translate }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="text-center w-100">
+                    {{ dateController.tuesdayDate }}
+                </div>
+            </div>
+        </div>
+        <div class="m-2 col">
+            <div class="row">
+                <div class="text-center w-100">
+                    {{ 'date.wednesday' | translate }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="text-center w-100">
+                    {{ dateController.wednesdayDate }}
+                </div>
+            </div>
+        </div>
+        <div class="m-2 col">
+            <div class="row">
+                <div class="text-center w-100">
+                    {{ 'date.thursday' | translate }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="text-center w-100">
+                    {{ dateController.thursdayDate }}
+                </div>
+            </div>
+        </div>
+        <div class="m-2 col">
+            <div class="row">
+                <div class="text-center w-100">
+                    {{ 'date.friday' | translate }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="text-center w-100">
+                    {{ dateController.fridayDate }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <!-- monday -->
+        <ng-container *ngFor="let appointment of calendarWorking.mondayWorkingDay">
+            <ng-container *ngIf="appointment.isAppoitment; then notEmpty; else emptySlot"></ng-container>
+            <ng-template #notEmpty>
+                <div class="row">
+                    <mat-card class="m-3 w-100" [ngStyle]="{'height': getHeight(appointment.widthTimes)}">
+                        <mat-card-header class="w-100">
+                            <mat-card-title>
+                                <mat-icon class="mr-2"
+                                    matTooltip="{{ 'visits.' + appointment.status.toLowerCase() | translate }}">
+                                    {{getSatus(appointment.status)}}</mat-icon>
+                                <span>{{ appointment.time.substring(0, 5) }}</span>
+                            </mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                        <mat-card-content>
+                            <ng-container *ngIf="appointment.isClientRegistered; then regirtered; else notregistered">
+                            </ng-container>
+                            <ng-template #regirtered>
+                                {{ appointment.clientRef.name }} 
+                                {{ appointment.clientRef.surname }}<br>
+                                {{ appointment.clientRef.phone }}<br>
+                            </ng-template>
+                            <ng-template #notregistered>
+                                {{ appointment.unregisteredClientRef.name }}
+                                {{ appointment.unregisteredClientRef.surname }}<br>
+                                {{ appointment.unregisteredClientRef.phone }}<br>
+                            </ng-template>
+                            {{ appointment.serviceRef.type }} <br> {{ appointment.serviceRef.name }} -
+                            {{ appointment.price }} PLN
+                        </mat-card-content>
+                        <mat-card-actions align="end">
+                            <button mat-icon-button matTooltip="{{ 'visits.confirm' | translate }}"
+                                (click)="setStatus(appointment, 'CONFIRMED')">
+                                <mat-icon>check_circle</mat-icon>
+                            </button>
+                            <button mat-icon-button matTooltip="{{ 'visits.pay' | translate }}"
+                            (click)="setStatus(appointment, 'FINISHED')">
+                                <mat-icon>monetization_on</mat-icon>
+                            </button>
+                            <button mat-icon-button matTooltip="{{ 'visits.cancel' | translate }}"
+                            (click)="setStatus(appointment, 'CANCELLED')">
+                                <mat-icon>cancel</mat-icon>
+                            </button>
+                            <button mat-icon-button matTooltip="{{ 'visits.reject' | translate }}"
+                            (click)="setStatus(appointment, 'REJECTED')">
+                                <mat-icon>error</mat-icon>
+                            </button>
+                            <button mat-icon-button color="warn" matTooltip="{{ 'shared.delete' | translate }}"
+                                (click)="removeAppointment(appointment.visitUuid)">
+                                <mat-icon>delete_forever</mat-icon>
+                            </button>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+            </ng-template>
+            <ng-template #emptySlot>
+                <div class="row">
+                    <mat-card class="m-3 w-100 empty-slot">
+                        <mat-card-header class="w-100">
+                            <mat-card-title>
+                                <mat-icon class="mr-2">radio_button_unchecked
+                                </mat-icon>
+                                <span>{{ appointment.time.substring(0, 5) }}</span>
+                            </mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                    </mat-card>
+                </div>
+            </ng-template>
+        </ng-container>
+    </div>
+    <div class="col">
+        <!-- tuesday -->
+        <ng-container *ngFor="let appointment of calendarWorking.tuesdayWorkingDay">
+            <ng-container *ngIf="appointment.isAppoitment; then notEmpty; else emptySlot"></ng-container>
+            <ng-template #notEmpty>
+                <div class="row">
+                    <mat-card class="m-3 w-100" [ngStyle]="{'height': getHeight(appointment.widthTimes)}">
+                        <mat-card-header class="w-100">
+                            <mat-card-title>
+                                <mat-icon class="mr-2"
+                                    matTooltip="{{ 'visits.' + appointment.status.toLowerCase() | translate }}">
+                                    {{getSatus(appointment.status)}}</mat-icon>
+                                <span>{{ appointment.time.substring(0, 5) }}</span>
+                            </mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                        <mat-card-content>
+                            <ng-container *ngIf="appointment.isClientRegistered; then regirtered; else notregistered">
+                            </ng-container>
+                            <ng-template #regirtered>
+                                {{ appointment.clientRef.name }} 
+                                {{ appointment.clientRef.surname }}<br>
+                                {{ appointment.clientRef.phone }}<br>
+                            </ng-template>
+                            <ng-template #notregistered>
+                                {{ appointment.unregisteredClientRef.name }}
+                                {{ appointment.unregisteredClientRef.surname }}<br>
+                                {{ appointment.unregisteredClientRef.phone }}<br>
+                            </ng-template>
+                            {{ appointment.serviceRef.type }} <br> {{ appointment.serviceRef.name }} -
+                            {{ appointment.price }} PLN
+                        </mat-card-content>
+                        <mat-card-actions align="end">
+                            <button mat-icon-button matTooltip="{{ 'visits.confirm' | translate }}"
+                                (click)="setStatus(appointment, 'CONFIRMED')">
+                                <mat-icon>check_circle</mat-icon>
+                            </button>
+                            <button mat-icon-button matTooltip="{{ 'visits.pay' | translate }}"
+                            (click)="setStatus(appointment, 'FINISHED')">
+                                <mat-icon>monetization_on</mat-icon>
+                            </button>
+                            <button mat-icon-button matTooltip="{{ 'visits.cancel' | translate }}"
+                            (click)="setStatus(appointment, 'CANCELLED')">
+                                <mat-icon>cancel</mat-icon>
+                            </button>
+                            <button mat-icon-button matTooltip="{{ 'visits.reject' | translate }}"
+                            (click)="setStatus(appointment, 'REJECTED')">
+                                <mat-icon>error</mat-icon>
+                            </button>
+                            <button mat-icon-button color="warn" matTooltip="{{ 'shared.delete' | translate }}"
+                                (click)="removeAppointment(appointment.visitUuid)">
+                                <mat-icon>delete_forever</mat-icon>
+                            </button>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+            </ng-template>
+            <ng-template #emptySlot>
+                <div class="row">
+                    <mat-card class="m-3 w-100 empty-slot">
+                        <mat-card-header class="w-100">
+                            <mat-card-title>
+                                <mat-icon class="mr-2">radio_button_unchecked
+                                </mat-icon>
+                                <span>{{ appointment.time.substring(0, 5) }}</span>
+                            </mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                    </mat-card>
+                </div>
+            </ng-template>
+        </ng-container>
+    </div>
+    <div class="col">
+        <!-- wednesday -->
+        <ng-container *ngFor="let appointment of calendarWorking.wednesdayWorkingDay">
+            <ng-container *ngIf="appointment.isAppoitment; then notEmpty; else emptySlot"></ng-container>
+            <ng-template #notEmpty>
+                <div class="row">
+                    <mat-card class="m-3 w-100" [ngStyle]="{'height': getHeight(appointment.widthTimes)}">
+                        <mat-card-header class="w-100">
+                            <mat-card-title>
+                                <mat-icon class="mr-2"
+                                    matTooltip="{{ 'visits.' + appointment.status.toLowerCase() | translate }}">
+                                    {{getSatus(appointment.status)}}</mat-icon>
+                                <span>{{ appointment.time.substring(0, 5) }}</span>
+                            </mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                        <mat-card-content>
+                            <ng-container *ngIf="appointment.isClientRegistered; then regirtered; else notregistered">
+                            </ng-container>
+                            <ng-template #regirtered>
+                                {{ appointment.clientRef.name }} 
+                                {{ appointment.clientRef.surname }}<br>
+                                {{ appointment.clientRef.phone }}<br>
+                            </ng-template>
+                            <ng-template #notregistered>
+                                {{ appointment.unregisteredClientRef.name }}
+                                {{ appointment.unregisteredClientRef.surname }}<br>
+                                {{ appointment.unregisteredClientRef.phone }}<br>
+                            </ng-template>
+                            {{ appointment.serviceRef.type }} <br> {{ appointment.serviceRef.name }} -
+                            {{ appointment.price }} PLN
+                        </mat-card-content>
+                        <mat-card-actions align="end">
+                            <button mat-icon-button matTooltip="{{ 'visits.confirm' | translate }}"
+                                (click)="setStatus(appointment, 'CONFIRMED')">
+                                <mat-icon>check_circle</mat-icon>
+                            </button>
+                            <button mat-icon-button matTooltip="{{ 'visits.pay' | translate }}"
+                            (click)="setStatus(appointment, 'FINISHED')">
+                                <mat-icon>monetization_on</mat-icon>
+                            </button>
+                            <button mat-icon-button matTooltip="{{ 'visits.cancel' | translate }}"
+                            (click)="setStatus(appointment, 'CANCELLED')">
+                                <mat-icon>cancel</mat-icon>
+                            </button>
+                            <button mat-icon-button matTooltip="{{ 'visits.reject' | translate }}"
+                            (click)="setStatus(appointment, 'REJECTED')">
+                                <mat-icon>error</mat-icon>
+                            </button>
+                            <button mat-icon-button color="warn" matTooltip="{{ 'shared.delete' | translate }}"
+                                (click)="removeAppointment(appointment.visitUuid)">
+                                <mat-icon>delete_forever</mat-icon>
+                            </button>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+            </ng-template>
+            <ng-template #emptySlot>
+                <div class="row">
+                    <mat-card class="m-3 w-100 empty-slot">
+                        <mat-card-header class="w-100">
+                            <mat-card-title>
+                                <mat-icon class="mr-2">radio_button_unchecked
+                                </mat-icon>
+                                <span>{{ appointment.time.substring(0, 5) }}</span>
+                            </mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                    </mat-card>
+                </div>
+            </ng-template>
+        </ng-container>
+    </div>
+    <div class="col">
+        <!-- thursday -->
+        <ng-container *ngFor="let appointment of calendarWorking.thursdayWorkingDay">
+            <ng-container *ngIf="appointment.isAppoitment; then notEmpty; else emptySlot"></ng-container>
+            <ng-template #notEmpty>
+                <div class="row">
+                    <mat-card class="m-3 w-100" [ngStyle]="{'height': getHeight(appointment.widthTimes)}">
+                        <mat-card-header class="w-100">
+                            <mat-card-title>
+                                <mat-icon class="mr-2"
+                                    matTooltip="{{ 'visits.' + appointment.status.toLowerCase() | translate }}">
+                                    {{getSatus(appointment.status)}}</mat-icon>
+                                <span>{{ appointment.time.substring(0, 5) }}</span>
+                            </mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                        <mat-card-content>
+                            <ng-container *ngIf="appointment.isClientRegistered; then regirtered; else notregistered">
+                            </ng-container>
+                            <ng-template #regirtered>
+                                {{ appointment.clientRef.name }} 
+                                {{ appointment.clientRef.surname }}<br>
+                                {{ appointment.clientRef.phone }}<br>
+                            </ng-template>
+                            <ng-template #notregistered>
+                                {{ appointment.unregisteredClientRef.name }}
+                                {{ appointment.unregisteredClientRef.surname }}<br>
+                                {{ appointment.unregisteredClientRef.phone }}<br>
+                            </ng-template>
+                            {{ appointment.serviceRef.type }} <br> {{ appointment.serviceRef.name }} -
+                            {{ appointment.price }} PLN
+                        </mat-card-content>
+                        <mat-card-actions align="end">
+                            <button mat-icon-button matTooltip="{{ 'visits.confirm' | translate }}"
+                                (click)="setStatus(appointment, 'CONFIRMED')">
+                                <mat-icon>check_circle</mat-icon>
+                            </button>
+                            <button mat-icon-button matTooltip="{{ 'visits.pay' | translate }}"
+                            (click)="setStatus(appointment, 'FINISHED')">
+                                <mat-icon>monetization_on</mat-icon>
+                            </button>
+                            <button mat-icon-button matTooltip="{{ 'visits.cancel' | translate }}"
+                            (click)="setStatus(appointment, 'CANCELLED')">
+                                <mat-icon>cancel</mat-icon>
+                            </button>
+                            <button mat-icon-button matTooltip="{{ 'visits.reject' | translate }}"
+                            (click)="setStatus(appointment, 'REJECTED')">
+                                <mat-icon>error</mat-icon>
+                            </button>
+                            <button mat-icon-button color="warn" matTooltip="{{ 'shared.delete' | translate }}"
+                                (click)="removeAppointment(appointment.visitUuid)">
+                                <mat-icon>delete_forever</mat-icon>
+                            </button>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+            </ng-template>
+            <ng-template #emptySlot>
+                <div class="row">
+                    <mat-card class="m-3 w-100 empty-slot">
+                        <mat-card-header class="w-100">
+                            <mat-card-title>
+                                <mat-icon class="mr-2">radio_button_unchecked
+                                </mat-icon>
+                                <span>{{ appointment.time.substring(0, 5) }}</span>
+                            </mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                    </mat-card>
+                </div>
+            </ng-template>
+        </ng-container>
+    </div>
+    <div class="col">
+        <!-- friday -->
+        <ng-container *ngFor="let appointment of calendarWorking.fridayWorkingDay">
+            <ng-container *ngIf="appointment.isAppoitment; then notEmpty; else emptySlot"></ng-container>
+            <ng-template #notEmpty>
+                <div class="row">
+                    <mat-card class="m-3 w-100" [ngStyle]="{'height': getHeight(appointment.widthTimes)}">
+                        <mat-card-header class="w-100">
+                            <mat-card-title>
+                                <mat-icon class="mr-2"
+                                    matTooltip="{{ 'visits.' + appointment.status.toLowerCase() | translate }}">
+                                    {{getSatus(appointment.status)}}</mat-icon>
+                                <span>{{ appointment.time.substring(0, 5) }}</span>
+                            </mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                        <mat-card-content>
+                            <ng-container *ngIf="appointment.isClientRegistered; then regirtered; else notregistered">
+                            </ng-container>
+                            <ng-template #regirtered>
+                                {{ appointment.clientRef.name }} 
+                                {{ appointment.clientRef.surname }}<br>
+                                {{ appointment.clientRef.phone }}<br>
+                            </ng-template>
+                            <ng-template #notregistered>
+                                {{ appointment.unregisteredClientRef.name }}
+                                {{ appointment.unregisteredClientRef.surname }}<br>
+                                {{ appointment.unregisteredClientRef.phone }}<br>
+                            </ng-template>
+                            {{ appointment.serviceRef.type }} <br> {{ appointment.serviceRef.name }} -
+                            {{ appointment.price }} PLN
+                        </mat-card-content>
+                        <mat-card-actions align="end">
+                            <button mat-icon-button matTooltip="{{ 'visits.confirm' | translate }}"
+                                (click)="setStatus(appointment, 'CONFIRMED')">
+                                <mat-icon>check_circle</mat-icon>
+                            </button>
+                            <button mat-icon-button matTooltip="{{ 'visits.pay' | translate }}"
+                            (click)="setStatus(appointment, 'FINISHED')">
+                                <mat-icon>monetization_on</mat-icon>
+                            </button>
+                            <button mat-icon-button matTooltip="{{ 'visits.cancel' | translate }}"
+                            (click)="setStatus(appointment, 'CANCELLED')">
+                                <mat-icon>cancel</mat-icon>
+                            </button>
+                            <button mat-icon-button matTooltip="{{ 'visits.reject' | translate }}"
+                            (click)="setStatus(appointment, 'REJECTED')">
+                                <mat-icon>error</mat-icon>
+                            </button>
+                            <button mat-icon-button color="warn" matTooltip="{{ 'shared.delete' | translate }}"
+                                (click)="removeAppointment(appointment.visitUuid)">
+                                <mat-icon>delete_forever</mat-icon>
+                            </button>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+            </ng-template>
+            <ng-template #emptySlot>
+                <div class="row">
+                    <mat-card class="m-3 w-100 empty-slot">
+                        <mat-card-header class="w-100">
+                            <mat-card-title>
+                                <mat-icon class="mr-2">radio_button_unchecked
+                                </mat-icon>
+                                <span>{{ appointment.time.substring(0, 5) }}</span>
+                            </mat-card-title>
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                    </mat-card>
+                </div>
+            </ng-template>
+        </ng-container>
+    </div>
+</div>

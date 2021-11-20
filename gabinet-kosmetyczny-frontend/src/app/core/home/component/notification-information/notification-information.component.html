@@ -1,0 +1,196 @@
+<div class="card-information p-4">
+    <div class="title-information">
+        <mat-icon class="mr-2">accessibility_new</mat-icon>
+        <div class="title">
+            {{ 'home.notifications' | translate }}
+        </div>
+    </div>
+    <mat-tab-group mat-align-tabs="start">
+        <mat-tab label='{{ "home.system-notif" | translate }}' *ngIf="!isWorker">
+            <ng-container *ngIf="systemNotifications">
+                <table class="w-100" mat-table [dataSource]="tableSystemSource" #MatSortSystem="matSort" matSort>
+                    <ng-container matColumnDef="notificationText">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            {{ 'shared.text' | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let notification">
+                            <ng-container *ngIf="checkIfSeen(notification.status); else elseTemplate">
+                                <span matBadgePosition="before" matBadge="!" matBadgeOverlap="false">
+                                    {{ notification.notificationText }}
+                                </span>
+                            </ng-container>
+                            <ng-template #elseTemplate>
+                                {{ notification.notificationText }}
+                            </ng-template>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="date">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            {{ 'shared.date' | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let notification">
+                            {{ notification.date }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        </th>
+                        <td mat-cell *matCellDef="let notification">
+                            <button class="float-right" mat-icon-button color="warn"
+                                (click)="setAsDeleted(notification.uuid)"
+                                matTooltip="{{ 'shared.delete' | translate }}">
+                                <mat-icon>delete_forever</mat-icon>
+                            </button>
+                            <ng-container *ngIf="checkIfSeen(notification.status)">
+                                <button mat-icon-button color="primary" class="float-right"
+                                    (click)="setAsSeen(notification.uuid)"
+                                    matTooltip="{{ 'shared.mark-as-viewd' | translate }}">
+                                    <mat-icon>visibility</mat-icon>
+                                </button>
+                            </ng-container>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="tableSystemDisplayedColumns sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: tableSystemDisplayedColumns;"></tr>
+                </table>
+            </ng-container>
+            <mat-paginator #MatPagSystem="matPaginator" [pageSizeOptions]="[4, 7, 10]" showFirstLastButtons>
+            </mat-paginator>
+        </mat-tab>
+        <mat-tab label='{{ "home.workers-notif" | translate }}'>
+            <ng-container *ngIf="userMesseges">
+                <table class="w-100" mat-table [dataSource]="tableWorkersSource" #MatSortWorkers="matSort" matSort>
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            {{ 'shared.name' | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let notification">
+                            <ng-container *ngIf="checkIfSeen(notification.status); else elseTemplate">
+                                <span matBadgePosition="before" matBadge="!" matBadgeOverlap="false">
+                                    {{ notification.name }}
+                                </span>
+                            </ng-container>
+                            <ng-template #elseTemplate>
+                                {{ notification.name }}
+                            </ng-template>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="surname">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            {{ 'shared.surname' | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let notification">
+                            {{ notification.surname }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="notificationText">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            {{ 'shared.text' | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let notification">
+                            {{ notification.notificationText }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="date">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            {{ 'shared.date' | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let notification">
+                            {{ notification.amount}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        </th>
+                        <td mat-cell *matCellDef="let notification">
+                            <button class="float-right" mat-icon-button color="warn"
+                                (click)="setAsDeleted(notification.uuid)"
+                                matTooltip="{{ 'shared.delete' | translate }}">
+                                <mat-icon>delete_forever</mat-icon>
+                            </button>
+                            <ng-container *ngIf="checkIfSeen(notification.status)">
+                                <button mat-icon-button color="primary" class="float-right"
+                                    (click)="setAsSeen(notification.uuid)"
+                                    matTooltip="{{ 'shared.mark-as-viewd' | translate }}">
+                                    <mat-icon>visibility</mat-icon>
+                                </button>
+                            </ng-container>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="tableNotiDisplayedColumns sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: tableNotiDisplayedColumns;"></tr>
+                </table>
+            </ng-container>
+            <mat-paginator #MatPagWorkers="matPaginator" [pageSizeOptions]="[4, 7, 10]" showFirstLastButtons>
+            </mat-paginator>
+        </mat-tab>
+        <mat-tab label='{{ "home.client-notif" | translate }}'>
+            <ng-container *ngIf="clientsMesseges">
+                <table class="w-100" mat-table [dataSource]="tableClientsSource" #MatSortClients="matSort" matSort>
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            {{ 'shared.name' | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let notification">
+                            <ng-container *ngIf="checkIfSeen(notification.status); else elseTemplate">
+                                <span matBadgePosition="before" matBadge="!" matBadgeOverlap="false">
+                                    {{ notification.name }}
+                                </span>
+                            </ng-container>
+                            <ng-template #elseTemplate>
+                                {{ notification.name }}
+                            </ng-template>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="surname">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            {{ 'shared.surname' | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let notification">
+                            {{ notification.surname }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="notificationText">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            {{ 'shared.text' | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let notification">
+                            {{ notification.notificationText}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="date">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            {{ 'shared.date' | translate }}
+                        </th>
+                        <td mat-cell *matCellDef="let notification">
+                            {{ notification.date}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        </th>
+                        <td mat-cell *matCellDef="let notification">
+                            <button class="float-right" mat-icon-button color="warn"
+                                (click)="setAsDeleted(notification.uuid)"
+                                matTooltip="{{ 'shared.delete' | translate }}">
+                                <mat-icon>delete_forever</mat-icon>
+                            </button>
+                            <ng-container *ngIf="checkIfSeen(notification.status)">
+                                <button mat-icon-button color="primary" class="float-right"
+                                    (click)="setAsSeen(notification.uuid)"
+                                    matTooltip="{{ 'shared.mark-as-viewd' | translate }}">
+                                    <mat-icon>visibility</mat-icon>
+                                </button>
+                            </ng-container>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="tableNotiDisplayedColumns sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: tableNotiDisplayedColumns;">
+                    </tr>
+                </table>
+            </ng-container>
+            <mat-paginator #MatPagClients="matPaginator" [pageSizeOptions]="[4, 7, 10]" showFirstLastButtons>
+            </mat-paginator>
+        </mat-tab>
+    </mat-tab-group>
+</div>

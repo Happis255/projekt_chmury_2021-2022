@@ -1,0 +1,27 @@
+<div class="card-information p-4">
+    <div class="title-information">
+        <mat-icon class="mr-2">euro</mat-icon>
+        <div class="title">
+            {{ "account.finance" | translate }}
+        </div>
+    </div>
+    <div class="text-information">
+        <div class="row mt-4 mb-3">
+            <div class="col">
+                &#8226; {{ "account.payment" | translate }}
+            </div>
+            <div class="col">
+                {{ paymentInformation.amount }} PLN
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="row mt-3 mb-3">
+            <div class="col">
+                &#8226; {{ "account.monthly-bonus" | translate }}
+            </div>
+            <div class="col">
+                {{ paymentInformation.bonus }} PLN
+            </div>
+        </div>
+    </div>
+</div>

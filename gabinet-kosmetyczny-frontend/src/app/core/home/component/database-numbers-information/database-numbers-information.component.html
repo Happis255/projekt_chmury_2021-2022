@@ -1,0 +1,34 @@
+<div class="row">
+    <div class="col-sm-6 col-lg-3">
+        <div class="card-information p-4">
+            <div class="number-information">
+                <mat-icon class="mr-2">contacts</mat-icon>{{ clientsAmount }}
+            </div>
+            <div class="text-information">{{ "home.clients-in-database" | translate }}</div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="card-information p-4">
+            <div class="number-information">
+                <mat-icon class="mr-2">accessibility_new</mat-icon> {{ workersAmount }}
+            </div>
+            <div class="text-information">{{ "home.workers-in-database" | translate }}</div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="card-information p-4">
+            <div class="number-information">
+                <mat-icon class="mr-2">date_range</mat-icon> {{ visitsAmount }}
+            </div>
+            <div class="text-information">{{ "home.visits-in-database" | translate }}</div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="card-information p-4">
+            <div class="number-information">
+                <mat-icon class="mr-2">insert_invitation</mat-icon> {{ visitsThisMonthAmount }}
+            </div>
+            <div class="text-information">{{ "home.visits-this-month-in-database" | translate }}</div>
+        </div>
+    </div>
+</div>

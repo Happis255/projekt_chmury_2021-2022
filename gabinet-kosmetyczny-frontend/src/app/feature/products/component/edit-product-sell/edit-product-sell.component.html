@@ -1,0 +1,59 @@
+<h2 mat-dialog-title>{{ 'products.edit-product-sell' | translate }}</h2>
+<mat-dialog-content class="mat-typography mb-4">
+    <form [formGroup]="editProductSellForm">
+        <div class="col">
+            <div class="row">
+                <mat-form-field class="m-2 form-field">
+                    <mat-label>
+                        {{ 'products.name' | translate }}
+                    </mat-label>
+                    <input [autocomplete]="false" matInput type="text" formControlName="name">
+                    <mat-error *ngIf="editProductSellForm.controls['name'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="m-2 form-field">
+                    <mat-label>
+                        {{ 'shared.description' | translate }}
+                    </mat-label>
+                    <input [autocomplete]="false" matInput type="text" formControlName="description">
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field class="m-2 form-field">
+                    <mat-label>
+                        {{ 'shared.price' | translate }}
+                    </mat-label>
+                    <input [autocomplete]="false" matInput type="text" formControlName="price">
+                    <mat-error *ngIf="editProductSellForm.controls['price'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                    <mat-error *ngIf="editProductSellForm.controls['price'].hasError('min')">
+                        <strong>{{ 'shared.bigger-than-zero' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="m-2 form-field">
+                    <mat-label>
+                        {{ 'shared.amount' | translate }}
+                    </mat-label>
+                    <input [autocomplete]="false" matInput type="number" formControlName="amount">
+                    <mat-error *ngIf="editProductSellForm.controls['amount'].hasError('required')">
+                        <strong>{{ 'shared.required_field' | translate }}</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>
+        {{ "shared.cancel" | translate }}
+    </button>
+    <button 
+        [disabled]="!editProductSellForm.valid"
+        mat-raised-button (click)="sumbit()"
+        color="primary"
+        [mat-dialog-close]="true">
+        {{ "shared.save" | translate }}
+    </button>
+</mat-dialog-actions>

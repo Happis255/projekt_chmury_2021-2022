@@ -1,0 +1,24 @@
+<div class="card-information p-4">
+    <div class="title-information">
+        <mat-icon class="mr-2">history_edu</mat-icon>
+        <div class="title">
+            {{ "account.certifications" | translate }}
+        </div>
+    </div>
+    <div class="text-information">
+        <div class="row mt-4 mb-3">
+            <div class="col">
+                <div *ngIf="certificates" class="certs-list">
+                    <ng-container *ngFor="let certificate of certificationList">
+                        &#8226; {{certificate}} <br>
+                    </ng-container>
+                </div>
+                <div class="col text-right">
+                    <button (click)="editCertificationsModal()" class="mt-4" mat-raised-button color="primary">
+                        {{ "shared.edit" | translate }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
