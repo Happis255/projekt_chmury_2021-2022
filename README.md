@@ -66,5 +66,9 @@ https://happis255.atlassian.net/jira/software/projects/BPC/boards/5
 ### Uruchomienie aplikacji lokalnie (WINDOWS)
 - Pobierz i zainstaluj https://www.docker.com/products/docker-desktop
 - W katalogu głównym repozytorium uruchom CMD i wykonaj polecenie `docker-compose up --build -d`
-- Odczekaj do 5 minut - sprawdź aplikację na localhost:4200
+- Odczekaj do 5 minut - sprawdź aplikację na http://localhost:4200/
 - Żeby zatrzymać aplikację, uruchom polecenie `docker-compose down`
+- Jeśli potrzebujemy wyczyścić dane - czyszczenie volumes - `docker volume rm $(docker volume ls -q)`
+
+### Dostęp do bazy danych przez GUI
+Dotęp do bazy danych w pracy lokalnej przez phpMyAdmin - http://localhost:8080/
