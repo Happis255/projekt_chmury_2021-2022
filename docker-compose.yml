@@ -2,7 +2,7 @@ version: '3.5'
 services:
   bsms_frontend_service:
     container_name: bsms-frontend
-    build: ./gabinet-kosmetyczny-frontend-develop
+    build: ./gabinet-kosmetyczny-frontend
     volumes:
       - './gabinet-kosmetyczny-frontend:/usr/src/app'
     ports: 
