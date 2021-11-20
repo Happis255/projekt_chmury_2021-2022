@@ -9,3 +9,23 @@ services:
       - '4200:4200'
     command: > 
         bash -c "npm install && ng serve --host 0.0.0.0 --port 4200"
+
+  bsms_database_service:
+    image: mariadb:10.4
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: gabinetkosmetycznydb
+    volumes:
+      - './gabinet-kosmetyczny-data-develop/sql:/docker-entrypoint-initdb.d'
+    ports:
+      - "3308:3306"
+
+  bsms_phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: bsms_database_service
+      PMA_USER: root
+      PMA_PASSWORD: password
+    ports:
+      - "8080:80"

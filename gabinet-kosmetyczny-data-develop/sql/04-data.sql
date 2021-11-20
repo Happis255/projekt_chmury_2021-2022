@@ -52,17 +52,17 @@ INSERT INTO `service` (`uuid`, `type`, `name`, `description`, `price`, `time`, `
 ('801e33ec-4ea1-42e9-af1a-6601c6fc065f', 'Kosmetyka Twarzy','Henna Rzęs','CZARNA PROSZKOWAll', '15', '30', NULL, NULL),
 ('2ca7974e-18d4-4980-9c10-8fcedce09044', 'Kosmetyka Twarzy','Henna Brwi Proszkowa', 'POŻĄDANY ODCIEŃ', '15', '15', NULL, NULL);
 
-INSERT INTO `unregistered_client` (`uuid`, `name`, `surname`, `phone`) VALUES
-('5afbf76f-b08f-4742-b288-a5a962df3998', 'Emma', 'Smith', '669155131'),
-('e9a5331e-b34c-4407-8a0b-c6c2464ce192', 'Olivia', 'Johnson', '432654876'),
-('c1497e5c-1deb-4925-a4e8-092298fc930b', 'Ava', 'Williams', '765543432'),
-('4fe88810-6cf5-4aff-b09b-5e30815e675a', 'Isabella', 'Brown', '432543654'),
-('643d96d6-42d3-4a60-9b63-2ca92360b839', 'Amelia', 'Jones', '765543432'),
-('daefcb3c-84af-4768-97db-a5f3d56aca19', 'Harper', 'Miller', '543543567'),
-('57d82d69-eff0-44a1-8058-5731abdee50b', 'Evelyn', 'Davis', '666554556');
+INSERT INTO `unregistered_client` (`uuid`, `name`, `surname`, `phone`, `e_mail`) VALUES
+('5afbf76f-b08f-4742-b288-a5a962df3998', 'Emma', 'Smith', '669155131', 'test@test.com'),
+('e9a5331e-b34c-4407-8a0b-c6c2464ce192', 'Olivia', 'Johnson', '432654876', 'test@test.com'),
+('c1497e5c-1deb-4925-a4e8-092298fc930b', 'Ava', 'Williams', '765543432', 'test@test.com'),
+('4fe88810-6cf5-4aff-b09b-5e30815e675a', 'Isabella', 'Brown', '432543654', 'test@test.com'),
+('643d96d6-42d3-4a60-9b63-2ca92360b839', 'Amelia', 'Jones', '765543432', 'test@test.com'),
+('daefcb3c-84af-4768-97db-a5f3d56aca19', 'Harper', 'Miller', '543543567', 'test@test.com'),
+('57d82d69-eff0-44a1-8058-5731abdee50b', 'Evelyn', 'Davis', '666554556', 'test@test.com');
 
-INSERT INTO `promotion` (`uuid`, `name`, `description`, `price`, `precent`) VALUES
-('ee8fe530-cba1-47ef-8e28-5387d96674e1', 'PROMOCJA ZIMA', NULL, '20', NULL);
+INSERT INTO `promotion` (`uuid`, `name`, `description`, `price`, `precent`, `date_from`, `date_to`) VALUES
+('ee8fe530-cba1-47ef-8e28-5387d96674e1', 'PROMOCJA ZIMA', NULL, '20', NULL, '2021-01-01', '2022-01-01');
 
 INSERT INTO `client` (`uuid`, `name`, `surname`, `street`, `code`, `town`, `birthday`, `phone`, `account_uuid`) VALUES 
 ('313ea5f2-7053-430d-b0ee-f2ef30104606', 'Aditi', 'Pope', 'Gilded Lane 23', '31-500', 'Haran', '2020-10-01', '693258147', '73aa3e7d-5680-4fd9-9ad8-7e161ea0bae2'),
@@ -70,9 +70,9 @@ INSERT INTO `client` (`uuid`, `name`, `surname`, `street`, `code`, `town`, `birt
 ('a88dc2ed-1723-4cb2-84a2-4127cb6c6483', 'Aaisha', 'Marquez', 'Bard Lane 321', '31-500', 'MillerVille', '2020-10-01', '693258147', '07539cc3-5595-4e77-8be8-46edb69f8372'),
 ('ba672302-b288-4a93-b7ed-edf5b837c34a', 'Jevon', 'Cousins', 'Clarity Lane 32', '31-500', 'Bradfordshire', '2020-10-01', '693258147', 'a6235d9b-2c28-4754-bc03-1d1dc780a985');
 
-INSERT INTO `absence` (`uuid`, `date_from`, `date_to`, `reason`, `worker_uuid`, `status`) VALUES
-('c207f89c-a52f-4902-9de6-3c51e6e59fba', '2020-10-11', '2020-10-16', 'Choroba', '2c4abc41-079a-4366-bb41-aded977754b1', 'CONFIRMED'),
-('397c9682-0309-4e2f-b341-92d252ab303a', '2020-10-18', '2020-10-24', 'Choroba', 'b3ad495d-3acd-47e0-84a5-6c9e4c8417a9', 'CONFIRMED');
+INSERT INTO `absence` (`uuid`,`title`, `date_from`, `date_to`, `reason`, `worker_uuid`, `status`) VALUES
+('c207f89c-a52f-4902-9de6-3c51e6e59fba', 'Choroba', '2020-10-11', '2020-10-16', 'Choroba', '2c4abc41-079a-4366-bb41-aded977754b1', 'CONFIRMED'),
+('397c9682-0309-4e2f-b341-92d252ab303a', 'Choroba', '2020-10-18', '2020-10-24', 'Choroba', 'b3ad495d-3acd-47e0-84a5-6c9e4c8417a9', 'CONFIRMED');
 
 INSERT INTO `service_worker` (`service_uuid`, `worker_uuid`) VALUES 
 ('d4c5411d-10d7-4319-bf23-8b341bcb27f0', '2c4abc41-079a-4366-bb41-aded977754b1'),
@@ -118,13 +118,13 @@ INSERT INTO `notification` (`uuid`, `to_account_uuid`, `date`, `notification_tex
 ('79aec34a-c204-413b-b9cf-3a7eae561df2', '9cb799a5-9212-474f-a0c9-691ffde0d7db', '2020-10-12', 'Przykładowy tekst 14', "07539cc3-5595-4e77-8be8-46edb69f8372", 'FROM_CLIENT', 'NOT_CONFIRMED');
 
 INSERT INTO `product_for_sell` (`uuid`, `name`, `description`, `price`, `amount`, `promotion_uuid`) VALUES 
-('cdcf0f9d-d160-4688-8054-e0478f5959d6', 'LIRENE RETINOL D-FORTE', 'PREPARAT ODMŁADZAJĄCY', '99,99', '20', NULL),
-('3cc40d8e-0cf7-4065-ae32-f9a10c963442', 'Krem BLUE DIAMOND Colway', 'PREPARAT DO CERY SUCHEJ', '199,99', '30', NULL),
-('74484c55-7c98-4870-ae80-6cd61e233978', 'COLWAY', 'Atelomaska na noc w saszetkach', '219,99', '3', NULL),
-('5857e741-1b05-4049-ae3d-1c49dfbcaff4', 'MARY KAY', 'INTENSYWNIE REGENERUJĄCY KREM POD OCZY', '329,99', '5', NULL),
-('97392c68-0eb8-4daf-867b-b12898d8f238', 'MARY KAY KREM NAWILŻAJĄCO', 'PREPARAT ODMŁADZAJĄCY ', '329,99', '20', NULL),
-('0a9e8692-f32d-41fc-b745-ad4c1e98f3de', 'TimeWise', 'REGENERUJĄCY ', '439,99', '60', NULL),
-('b5a493fe-72dd-499b-8b87-27422fdc6128', 'B-Scrub PRO', 'BEAUTIFLY Peeling kawitacyjny', '49,99', '30', NULL);
+('cdcf0f9d-d160-4688-8054-e0478f5959d6', 'LIRENE RETINOL D-FORTE', 'PREPARAT ODMŁADZAJĄCY', '99.99', '20', NULL),
+('3cc40d8e-0cf7-4065-ae32-f9a10c963442', 'Krem BLUE DIAMOND Colway', 'PREPARAT DO CERY SUCHEJ', '199.99', '30', NULL),
+('74484c55-7c98-4870-ae80-6cd61e233978', 'COLWAY', 'Atelomaska na noc w saszetkach', '219.99', '3', NULL),
+('5857e741-1b05-4049-ae3d-1c49dfbcaff4', 'MARY KAY', 'INTENSYWNIE REGENERUJĄCY KREM POD OCZY', '329.99', '5', NULL),
+('97392c68-0eb8-4daf-867b-b12898d8f238', 'MARY KAY KREM NAWILŻAJĄCO', 'PREPARAT ODMŁADZAJĄCY ', '329.99', '20', NULL),
+('0a9e8692-f32d-41fc-b745-ad4c1e98f3de', 'TimeWise', 'REGENERUJĄCY ', '439.99', '60', NULL),
+('b5a493fe-72dd-499b-8b87-27422fdc6128', 'B-Scrub PRO', 'BEAUTIFLY Peeling kawitacyjny', '49.99', '30', NULL);
 
 INSERT INTO `product_for_use` (`uuid`, `name`, `description`, `price`, `amount`, `code`) VALUES 
 ('53c61feb-6373-40a2-bf68-72b0dad25a52', 'NTN 93 Deserts Collection', 'lakier hybrydowy', '19.99', '25', '4234231'),
@@ -182,4 +182,4 @@ INSERT INTO `bonuses` (`uuid`, `amount`, `date_given`, `worker_uuid`) VALUES
 ('1a391359-bf92-4acd-a9a7-e7dc3fc9fe86', '200', '2020-11-10', 'b3ad495d-3acd-47e0-84a5-6c9e4c8417a9');
 
 INSERT INTO `economic_task` (`uuid`, `title`, `description`, `date_from`, `date_to`, `worker_uuid`) VALUES 
-('6cf4b8fd-aea5-4cdf-9c13-677a77aedeed \r\n', 'Zadanie 01', 'Opis 01', '2020-10-18', '2020-10-24', 'b3ad495d-3acd-47e0-84a5-6c9e4c8417a9');
+('6cf4b8fd-aea5-4cdf-9c13-677a77aedeed', 'Zadanie 01', 'Opis 01', '2020-10-18', '2020-10-24', 'b3ad495d-3acd-47e0-84a5-6c9e4c8417a9');
