@@ -1,4 +1,6 @@
-FROM openjdk:8
-EXPOSE 8083
-ADD target/spring-boot-docker.jar spring-boot-docker.jar
-CMD ["java", "-jar", "spring-bdependencyoot-docker.jar.jar"]
+FROM maven:3.8.2-jdk-11
+WORKDIR /bsms-app
+COPY . .
+RUN mvn clean install
+
+CMD mvn spring-boot:run
