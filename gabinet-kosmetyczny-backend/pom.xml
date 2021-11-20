@@ -92,12 +92,38 @@
         </dependency>
     </dependencies>
 	<build>
+		<finalName>beauty-salon-system</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>1.4.3</version>
+				<executions>
+					<execution>
+						<id>default</id>
+						<goals>
+							<goal>build</goal>
+							<goal>push</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<repository>beauty-salon-system/beauty-salon-system</repository>
+					<tag>${project.version}</tag>
+				</configuration>
+				<dependencies>
+					<!-- To make this work on JDK 9+ -->
+					<dependency>
+						<groupId>javax.activation</groupId>
+						<artifactId>javax.activation-api</artifactId>
+						<version>1.2.0</version>
+					</dependency>
+				</dependencies>
+			</plugin>
 		</plugins>
-		<finalName>spring-boot-docker</finalName>
 	</build>
 </project>
