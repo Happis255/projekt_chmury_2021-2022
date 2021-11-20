@@ -67,3 +67,4 @@ https://happis255.atlassian.net/jira/software/projects/BPC/boards/5
 - Pobierz i zainstaluj https://www.docker.com/products/docker-desktop
 - W katalogu głównym repozytorium uruchom CMD i wykonaj polecenie `docker-compose up --build -d`
 - Odczekaj do 5 minut - sprawdź aplikację na localhost:4200
+- Żeby zatrzymać aplikację, uruchom polecenie `docker-compose down`
