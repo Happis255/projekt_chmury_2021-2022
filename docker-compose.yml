@@ -13,7 +13,9 @@ services:
   bsms_database_service:
     container_name: bsms-database
     restart: unless-stopped
-    image: mariadb:10.4
+    image: mysql:8
+    networks:
+      - bsms-mysql
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: gabinetkosmetycznydb
@@ -30,6 +32,8 @@ services:
       PMA_HOST: bsms_database_service
       PMA_USER: root
       PMA_PASSWORD: password
+    networks:
+      - bsms-mysql
     ports:
       - "8080:80"
 
@@ -41,8 +45,10 @@ services:
        context: ./gabinet-kosmetyczny-backend
        dockerfile: Dockerfile
     restart: always
+    networks:
+      - bsms-mysql
     ports:
       - "8083:8083"
 
-volumes:
-  bsms_database_service:
+networks:
+  bsms-mysql:
