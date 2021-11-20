@@ -14,7 +14,6 @@ services:
     image: mariadb:10.4
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: gabinetkosmetycznydb
     volumes:
       - './gabinet-kosmetyczny-data-develop/sql:/docker-entrypoint-initdb.d'
     ports:
