@@ -1,8 +1,0 @@
-<li class="side-nav-item">
-    <a class="side-nav-item-a" routerLink="{{ sideMenuElement.url }}"
-    [ngClass]="(sideMenuElement.url===router.url || sideMenuElement.modalUrl===router.url) && !sideMenuElement.isModal?'selected':'not-selected'">
-        <span class="side-nav-item-name">
-            {{ sideMenuElement.title | translate }}
-        </span>
-    </a>
-</li>

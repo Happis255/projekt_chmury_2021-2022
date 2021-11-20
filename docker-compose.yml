@@ -4,7 +4,7 @@ services:
     container_name: bsms-frontend
     build: ./gabinet-kosmetyczny-frontend-develop
     volumes:
-      - './gabinet-kosmetyczny-frontend-develop:/usr/src/app'
+      - './gabinet-kosmetyczny-frontend:/usr/src/app'
     ports: 
       - '4200:4200'
     command: > 
@@ -17,7 +17,7 @@ services:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: gabinetkosmetycznydb
     volumes:
-      - './gabinet-kosmetyczny-data-develop/sql:/docker-entrypoint-initdb.d'
+      - './gabinet-kosmetyczny-data/sql:/docker-entrypoint-initdb.d'
     ports:
       - "3308:3306"
 
