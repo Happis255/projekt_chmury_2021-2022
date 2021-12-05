@@ -1,1 +1,0 @@
-# gabinet-kosmetyczny-backend
