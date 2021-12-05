@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<h1 style="
+    font-size: 1.625rem;
+    margin-bottom: 0.25em;
+    font-family: Century Gothic;
+    font-weight: 100;">
+    Powiadomienie
+</h1>
+<div style="display: inline-flex;">
+    <h4 style="
+    font-size: 15px;
+    margin-bottom: 0.25em;
+    font-family: Century Gothic;
+    font-weight: 100;">
+        Powiadomienie wysłane za pośrednictwem systemu HSBSMS:
+    </h4>
+    <h4 th:text="${message}" style="
+    font-size: 15px;
+    margin-bottom: 0.25em;
+    font-family: Century Gothic;
+    font-weight: 700;
+    margin-left: 10px;"></h4>
+    </div>
+</div>
+<div style="margin-top: 37px; inline-size: min-content;">
+    <h4 style="
+    font-size: 12px;
+    font-family: Century Gothic;
+    font-weight: 100;
+    float: left;
+    margin: 0;">
+        Wysłane od pracownika:
+    </h4>
+    <h4 th:text="${from}" style="
+    font-family: Century Gothic;
+    font-size: smaller;"></h4>
+    <h4>
+</div>
+    [HSBSMS] Hubert Wąsik - 609 155 131
+</h4>
+</body>
+</html>
