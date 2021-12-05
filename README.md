@@ -69,6 +69,7 @@ https://happis255.atlassian.net/jira/software/projects/BPC/boards/5
 - Odczekaj do 5 minut - sprawdź aplikację na http://localhost:4200/
 - Żeby zatrzymać aplikację, uruchom polecenie `docker-compose down`
 - Jeśli potrzebujemy wyczyścić dane - czyszczenie volumes - `docker volume rm $(docker volume ls -q)`
+- Usunięcie nieużywanych obrazów - `docker image prune -a`
 
 ### Dostęp do bazy danych przez GUI
 Dotęp do bazy danych w pracy lokalnej przez phpMyAdmin - http://localhost:8080/
