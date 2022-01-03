@@ -10,37 +10,8 @@ services:
     command: > 
         bash -c "npm install && ng serve --host 0.0.0.0 --port 4200"
 
-  bsms_database_service:
-    container_name: bsms-database
-    restart: unless-stopped
-    image: mysql:8
-    networks:
-      - bsms-mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: gabinetkosmetycznydb
-    volumes:
-      - './gabinet-kosmetyczny-data/sql:/docker-entrypoint-initdb.d'
-    ports:
-      - "3306:3306"
-
-  bsms_phpmyadmin:
-    container_name: phpmyadmin
-    image: phpmyadmin
-    restart: always
-    environment:
-      PMA_HOST: bsms_database_service
-      PMA_USER: root
-      PMA_PASSWORD: password
-    networks:
-      - bsms-mysql
-    ports:
-      - "8080:80"
-
   bsms_backend-all-in-one:
     container_name: bsms-backend-all-in-one
-    depends_on:
-      - bsms_database_service
     build:
        context: ./gabinet-kosmetyczny-backend/all-in-one
        dockerfile: Dockerfile
@@ -52,8 +23,6 @@ services:
       
   bsms_appointment_service:
     container_name: bsms-appointment-service
-    depends_on:
-      - bsms_database_service
     build:
        context: ./gabinet-kosmetyczny-backend/appointment-service
        dockerfile: Dockerfile
@@ -65,8 +34,6 @@ services:
 
   bsms_employee_service:
     container_name: bsms-employee-service
-    depends_on:
-      - bsms_database_service
     build:
        context: ./gabinet-kosmetyczny-backend/employee-service
        dockerfile: Dockerfile
@@ -78,8 +45,6 @@ services:
 
   bsms_equipment_service:
     container_name: bsms-equipment-service
-    depends_on:
-      - bsms_database_service
     build:
        context: ./gabinet-kosmetyczny-backend/equipment-service
        dockerfile: Dockerfile
@@ -91,8 +56,6 @@ services:
 
   bsms_notification_service:
     container_name: bsms-notification-service
-    depends_on:
-      - bsms_database_service
     build:
        context: ./gabinet-kosmetyczny-backend/notification-service
        dockerfile: Dockerfile
@@ -104,8 +67,6 @@ services:
 
   bsms_product_service:
     container_name: bsms-product-service
-    depends_on:
-      - bsms_database_service
     build:
        context: ./gabinet-kosmetyczny-backend/product-service
        dockerfile: Dockerfile
@@ -117,8 +78,6 @@ services:
 
   bsms_promotion_service:
     container_name: bsms-promotion-service
-    depends_on:
-      - bsms_database_service
     build:
        context: ./gabinet-kosmetyczny-backend/promotion-service
        dockerfile: Dockerfile
@@ -130,8 +89,6 @@ services:
 
   bsms_service_service:
     container_name: bsms-service-service
-    depends_on:
-      - bsms_database_service
     build:
        context: ./gabinet-kosmetyczny-backend/service-service
        dockerfile: Dockerfile
@@ -143,8 +100,6 @@ services:
 
   bsms_statistic_service:
     container_name: bsms-statistic-service
-    depends_on:
-      - bsms_database_service
     build:
        context: ./gabinet-kosmetyczny-backend/statistic-service
        dockerfile: Dockerfile
@@ -156,8 +111,6 @@ services:
 
   bsms_user_service:
     container_name: bsms-user-service
-    depends_on:
-      - bsms_database_service
     build:
        context: ./gabinet-kosmetyczny-backend/user-service
        dockerfile: Dockerfile
@@ -169,8 +122,6 @@ services:
       
   bsms_report_service:
     container_name: bsms-report-service
-    depends_on:
-      - bsms_database_service
     build:
        context: ./gabinet-kosmetyczny-backend/report-service
        dockerfile: Dockerfile

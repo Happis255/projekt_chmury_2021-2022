@@ -99,6 +99,7 @@ C:\Users\Huber\Desktop\projekt_chmury\gabinet-kosmetyczny-backend\user-service\s
 C:\Users\Huber\Desktop\projekt_chmury\gabinet-kosmetyczny-backend\user-service\src\main\java\api\hsbsms\model\table\Worker.java
 C:\Users\Huber\Desktop\projekt_chmury\gabinet-kosmetyczny-backend\user-service\src\main\java\api\hsbsms\services\MailClient.java
 C:\Users\Huber\Desktop\projekt_chmury\gabinet-kosmetyczny-backend\user-service\src\main\java\api\hsbsms\model\forms\fromBody\Uuid.java
+C:\Users\Huber\Desktop\projekt_chmury\gabinet-kosmetyczny-backend\user-service\src\main\java\api\hsbsms\restControllers\worker\ClientsRestController.java
 C:\Users\Huber\Desktop\projekt_chmury\gabinet-kosmetyczny-backend\user-service\src\main\java\api\hsbsms\model\forms\toReturn\MachineReportForm.java
 C:\Users\Huber\Desktop\projekt_chmury\gabinet-kosmetyczny-backend\user-service\src\main\java\api\hsbsms\model\table\Client.java
 C:\Users\Huber\Desktop\projekt_chmury\gabinet-kosmetyczny-backend\user-service\src\main\java\api\hsbsms\model\table\Appoitment.java

@@ -1,0 +1,184 @@
+version: '3.5'
+services:
+  bsms_frontend_service:
+    container_name: bsms-frontend
+    build: ./gabinet-kosmetyczny-frontend
+    volumes:
+      - './gabinet-kosmetyczny-frontend:/usr/src/app'
+    ports: 
+      - '4200:4200'
+    command: > 
+        bash -c "npm install && ng serve --host 0.0.0.0 --port 4200"
+
+  bsms_database_service:
+    container_name: bsms-database
+    restart: unless-stopped
+    image: mysql:8
+    networks:
+      - bsms-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: gabinetkosmetycznydb
+    volumes:
+      - './gabinet-kosmetyczny-data/sql:/docker-entrypoint-initdb.d'
+    ports:
+      - "3306:3306"
+
+  bsms_phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: bsms_database_service
+      PMA_USER: root
+      PMA_PASSWORD: password
+    networks:
+      - bsms-mysql
+    ports:
+      - "8080:80"
+
+  bsms_backend-all-in-one:
+    container_name: bsms-backend-all-in-one
+    depends_on:
+      - bsms_database_service
+    build:
+       context: ./gabinet-kosmetyczny-backend/all-in-one
+       dockerfile: Dockerfile
+    restart: always
+    networks:
+      - bsms-mysql
+    ports:
+      - "8083:8083"
+      
+  bsms_appointment_service:
+    container_name: bsms-appointment-service
+    depends_on:
+      - bsms_database_service
+    build:
+       context: ./gabinet-kosmetyczny-backend/appointment-service
+       dockerfile: Dockerfile
+    restart: always
+    networks:
+      - bsms-mysql
+    ports:
+      - "8101:8101"
+
+  bsms_employee_service:
+    container_name: bsms-employee-service
+    depends_on:
+      - bsms_database_service
+    build:
+       context: ./gabinet-kosmetyczny-backend/employee-service
+       dockerfile: Dockerfile
+    restart: always
+    networks:
+      - bsms-mysql
+    ports:
+      - "8102:8102"
+
+  bsms_equipment_service:
+    container_name: bsms-equipment-service
+    depends_on:
+      - bsms_database_service
+    build:
+       context: ./gabinet-kosmetyczny-backend/equipment-service
+       dockerfile: Dockerfile
+    restart: always
+    networks:
+      - bsms-mysql
+    ports:
+      - "8103:8103"
+
+  bsms_notification_service:
+    container_name: bsms-notification-service
+    depends_on:
+      - bsms_database_service
+    build:
+       context: ./gabinet-kosmetyczny-backend/notification-service
+       dockerfile: Dockerfile
+    restart: always
+    networks:
+      - bsms-mysql
+    ports:
+      - "8104:8104"
+
+  bsms_product_service:
+    container_name: bsms-product-service
+    depends_on:
+      - bsms_database_service
+    build:
+       context: ./gabinet-kosmetyczny-backend/product-service
+       dockerfile: Dockerfile
+    restart: always
+    networks:
+      - bsms-mysql
+    ports:
+      - "8105:8105"
+
+  bsms_promotion_service:
+    container_name: bsms-promotion-service
+    depends_on:
+      - bsms_database_service
+    build:
+       context: ./gabinet-kosmetyczny-backend/promotion-service
+       dockerfile: Dockerfile
+    restart: always
+    networks:
+      - bsms-mysql
+    ports:
+      - "8106:8106"
+
+  bsms_service_service:
+    container_name: bsms-service-service
+    depends_on:
+      - bsms_database_service
+    build:
+       context: ./gabinet-kosmetyczny-backend/service-service
+       dockerfile: Dockerfile
+    restart: always
+    networks:
+      - bsms-mysql
+    ports:
+      - "8107:8107"
+
+  bsms_statistic_service:
+    container_name: bsms-statistic-service
+    depends_on:
+      - bsms_database_service
+    build:
+       context: ./gabinet-kosmetyczny-backend/statistic-service
+       dockerfile: Dockerfile
+    restart: always
+    networks:
+      - bsms-mysql
+    ports:
+      - "8108:8108"
+
+  bsms_user_service:
+    container_name: bsms-user-service
+    depends_on:
+      - bsms_database_service
+    build:
+       context: ./gabinet-kosmetyczny-backend/user-service
+       dockerfile: Dockerfile
+    restart: always
+    networks:
+      - bsms-mysql
+    ports:
+      - "8109:8109"
+      
+  bsms_report_service:
+    container_name: bsms-report-service
+    depends_on:
+      - bsms_database_service
+    build:
+       context: ./gabinet-kosmetyczny-backend/report-service
+       dockerfile: Dockerfile
+    restart: always
+    networks:
+      - bsms-mysql
+    ports:
+      - "8110:8110"
+      
+networks:
+  bsms-mysql:
