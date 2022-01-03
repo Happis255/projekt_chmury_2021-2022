@@ -1,3 +1,5 @@
+USE gabinetkosmetycznydb;
+
 ALTER TABLE worker 
   ADD FOREIGN KEY (account_uuid) REFERENCES account(uuid);
 

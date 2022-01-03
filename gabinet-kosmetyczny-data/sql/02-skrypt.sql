@@ -1,3 +1,5 @@
+USE gabinetkosmetycznydb;
+
 CREATE TABLE account 
   ( 
      uuid     CHAR(255) PRIMARY KEY, 

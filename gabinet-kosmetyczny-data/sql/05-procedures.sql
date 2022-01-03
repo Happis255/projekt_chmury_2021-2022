@@ -1,3 +1,5 @@
+USE gabinetkosmetycznydb;
+
 DELIMITER //
 CREATE PROCEDURE FIND_ALL_AVAIBLE_WORKERS_FOR_SERVICE_AND_TIME (
     p_service_uuid CHAR(255),
