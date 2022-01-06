@@ -100,3 +100,7 @@ Przy większej ilości maszyna się zawieszała i należało wykonywać jej rest
 ### Konfiguracja części frontowej
 
 Skonfigurowany został odpowiedni plik `environment.prod.ts` posiadający adres na wskazany serwis backendowy. Za pośrednictwem komendy npm i zainstalowane zostały wszystkie wymagane zależności aplikacji i biblioteki, z których korzysta. Przez polecenie `ng build --prod` zbudowana została aplikacja frontendowa w folderze dist, którego zawartość została umieszczona na S3. Za pośrednictwem konfiguratora utworzyliśmy stronę statyczną hostowaną na utworzonym wcześniej bucket'cie bsms-frontend-v2. Dostęp do aplikacji został nadany dla użytkowników zalogowanych w AWS i mających dostęp do projektu z uwagi na zachowanie bezpieczeńśtwa apliakcji i zablokowaniu nie powołanego do niego dostępu. Aplikacja jest dostępna pod adresem http://bsms-frontend-v2.s3-website-eu-west-1.amazonaws.com. 
+
+## Wideoprezentacja
+
+https://www.youtube.com/watch?v=kbneUG3hR0I
