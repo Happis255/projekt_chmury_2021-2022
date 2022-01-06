@@ -4,7 +4,7 @@ System wspomagający pracę gabinetu kosmetycznego składa się z bazy danych od
 
 ### Skład zespołu
 
-- AWS, RDS                      - Anastasiia Afanasieva
+- AWS, EC2, RDS                      - Anastasiia Afanasieva
 - Frontend, Docker, EC2         - Bartosz Kowalski
 - Backend + Baza, AWS Cognito   - Czyżewski Eryk
 - Backend + Baza, API Gateway   - Michał Kubita
@@ -85,7 +85,11 @@ Z uwagi na ograniczone możliwości związane z AWS oraz tym, że nie uzyskaliś
 
 ## Konfiguracja Bazy Danych
 
-Anastasia rozpiszesz?
+Dla konfiguracji i przeniesienia bazy danych aplikacji oryginalnej utworzonej przy pomocy MySQL dodaliśmy do projektu serwis RDS oraz utworzyliśmy instancję "database-chmurki". Wszystkie ustawienia byli zgodne z usługami free-tier AWS'a (DB engine ver. 8.0.23, db.t2.micro, 20 GiB allocated storage). Następnie na EC2 był zainstalowany klient MySQL, po czym połączyliśmy się przez niego z instancją RDS poprzez polecenie:
+mysql -h database-chmurki.cfysjjyc5sda.eu-west-1.rds.amazonaws.com -P 3306 -u admin -p
+
+Po wprowadzeniu hasła następuje połączenie z bazą. Przy pomocy git clone został pobrany kod źródłowy projektu, po czym poleceniem
+mysql> source file_name.sql uruchomiliśmy poszczególne skrypty sql z gabinet-kosmetyczny-data/sql/, które utworzyli bazę na instancji RDS.
 
 ## Konfiguracja części backendowej
 
