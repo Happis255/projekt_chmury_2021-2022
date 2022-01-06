@@ -74,16 +74,16 @@ https://happis255.atlassian.net/jira/software/projects/BPC/boards/5
 ### Dostęp do bazy danych przez GUI
 Dotęp do bazy danych w pracy lokalnej przez phpMyAdmin - http://localhost:8080/
 
-### Sprawozdanie dot. systemu w AWS
+## Sprawozdanie dot. systemu w AWS
 
-## Zmiana założeń, które wynikły z trwających prac nad wdrożeniem aplikacji na AWS
+### Zmiana założeń, które wynikły z trwających prac nad wdrożeniem aplikacji na AWS
 
 Z uwagi na ograniczone możliwości związane z AWS oraz tym, że nie uzyskaliśmy kont studenckich i mieliśmy jedynie dostęp do trialowych wersji AWS uznaliśmy w trakcie prac nad aplikacją webową, że:
 - Zrezygnujemy z kilku postawionych kontenerów Dockerowych (serwisy backendowe) na rzecz jednego kontenera (ograniczyła nas ilość miejsca i moc EC2).
 - Zrezygnowaliśmy z hostowania częsci frontowej na EC2 (system się wieszał przy buildzie image Angulara) na rzecz hostowania aplikacji frontowej satycznej na S3.
 - Zrezygnowaliśmy z cognito i api gateway z uwagi na jeden serwis backendowy (a więc api gateway uznaliśmy za zbędny, jednak zapoznaliśmy się z jego częścią teoretyczną).
 
-## Konfiguracja Bazy Danych
+### Konfiguracja Bazy Danych
 
 Dla konfiguracji i przeniesienia bazy danych aplikacji oryginalnej utworzonej przy pomocy MySQL dodaliśmy do projektu serwis RDS oraz utworzyliśmy instancję "database-chmurki". Wszystkie ustawienia byli zgodne z usługami free-tier AWS'a (DB engine ver. 8.0.23, db.t2.micro, 20 GiB allocated storage). Następnie na EC2 był zainstalowany klient MySQL, po czym połączyliśmy się przez niego z instancją RDS poprzez polecenie:
 `mysql -h database-chmurki.cfysjjyc5sda.eu-west-1.rds.amazonaws.com -P 3306 -u admin -p`
@@ -91,12 +91,12 @@ Dla konfiguracji i przeniesienia bazy danych aplikacji oryginalnej utworzonej pr
 Po wprowadzeniu hasła następuje połączenie z bazą. Przy pomocy `git clone` został pobrany kod źródłowy projektu, po czym poleceniem
 `mysql> source file_name.sql` uruchomiliśmy poszczególne skrypty sql z gabinet-kosmetyczny-data/sql/, które utworzyli bazę na instancji RDS.
 
-## Konfiguracja części backendowej
+### Konfiguracja części backendowej
 
 W celu wdrożenia mikroserwisów na AWS rozbiliśmy wcześniej przygotowany serwis Spring Boot na kilka poszczególych mikroserwisów. Każdy z takich mikroserwisów został umieszczony w przygotowanym z odpowiednim portem kontenerze Docker. Następnie wszystkie mikroserwisy zostały spięte w całość za pomocą docker-compose (plik znajduje się w repozytorium). Po zbudowaniu odpowiednich obrazów poszczególnych kontenerów i umieszczeniu ich w docker hub ich obrazy zostały pobrane na EC2 za pośrednictwem docker pull. Obrazy zostały następnie uruchomione na EC2, jednak przez jej ograniczenia sprzętowe udało nam się uruchomić jedynie 4 mikroserwisy. 
 
 Przy większej ilości maszyna się zawieszała i należało wykonywać jej restart. Zdecvydowaliśmy się na użycie jednego obrazu dockerowego, tak zwanego all-in-one który posiadał wszystkie funkcjonalności poszczególnych mikroserwisów. Po rucuhomieniu tego konteneraz za pośrednictwerm `docker run -t -i -p 80:8083 bsms-backend-all-in-one` udało nam się uruchomić serwis backendowy na EC2. Api zostało udostępnione na adresie https://54.72.214.10/8083. Backend został również odpowiednio skonfigurowany w plikach konfiguracyjnych tak, by mógł korzystać z bazy danych AWS (plik w src\main\resources\application.properties).
 
-## Konfiguracja części frontowej
+### Konfiguracja części frontowej
 
 Skonfigurowany został odpowiedni plik `environment.prod.ts` posiadający adres na wskazany serwis backendowy. Za pośrednictwem komendy npm i zainstalowane zostały wszystkie wymagane zależności aplikacji i biblioteki, z których korzysta. Przez polecenie `ng build --prod` zbudowana została aplikacja frontendowa w folderze dist, którego zawartość została umieszczona na S3. Za pośrednictwem konfiguratora utworzyliśmy stronę statyczną hostowaną na utworzonym wcześniej bucket'cie bsms-frontend-v2. Dostęp do aplikacji został nadany dla użytkowników zalogowanych w AWS i mających dostęp do projektu z uwagi na zachowanie bezpieczeńśtwa apliakcji i zablokowaniu nie powołanego do niego dostępu. Aplikacja jest dostępna pod adresem http://bsms-frontend-v2.s3-website-eu-west-1.amazonaws.com. 
