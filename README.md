@@ -107,5 +107,5 @@ https://www.youtube.com/watch?v=kbneUG3hR0I
 
 ## Wnioski
 
-
+Plusami wykorzystywania AWS jest jego prosty i przyjazny interfejs użytkownika. Korzystanie z GUI AWS jest stosunkowo proste, a zaimplementowane serwisy można w łatwy sposób zintegrować z resztą elementów typu RDS ponieważ firma zapewnia dobrze udokumentowane interfejsy API usług internetowych, których można użyć w celu uzyskania dostępu do platformy. AWS udostępnia ogrom funkcjonalności co również jest na plus - pozwala to na implementację dowolnej wybranej przez siebie usługi internetowej wymagającej różne poziomy zabezpieczeń czy integracji. Z AWS pracowało nam się bardzo dobrze, minusem w chwili obecnej były jedynie ograniczenia związane z darmowym kontem oraz konieczność dodania karty debetowej stwarzając przez to poczucie zagrożenia poniesienia niepożądanych, dodatkowych kosztów. Poza tym serwis, który zaimplementowaliśmy, działał poprawnie, a więc AWS spełnił nasze oczekiwania. Przez konsole mieliśmy dostęp do mikroserwisów backendowych i w łatwy sposób mogliśmy przeprowadzać debuggowanie aplikacji już hostowanej na AWS i naprawiać w niej błedy. 
 
