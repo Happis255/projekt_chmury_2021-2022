@@ -78,10 +78,10 @@ Dotęp do bazy danych w pracy lokalnej przez phpMyAdmin - http://localhost:8080/
 
 ### Zmiana założeń, które wynikły z trwających prac nad wdrożeniem aplikacji na AWS
 
-Z uwagi na ograniczone możliwości związane z AWS oraz tym, że nie uzyskaliśmy kont studenckich i mieliśmy jedynie dostęp do trialowych wersji AWS uznaliśmy w trakcie prac nad aplikacją webową, że:
+Z uwagi na ograniczone możliwości związane z AWS oraz tym, że nie uzyskaliśmy kont studenckich i mieliśmy jedynie dostęp do trialowych wersji AWS oraz z uwagi na wykorzystane już zasoby na S3 uznaliśmy w trakcie prac nad aplikacją webową, że:
 - Zrezygnujemy z kilku postawionych kontenerów Dockerowych (serwisy backendowe) na rzecz jednego kontenera (ograniczyła nas ilość miejsca i moc EC2).
 - Zrezygnowaliśmy z hostowania częsci frontowej na EC2 (system się wieszał przy buildzie image Angulara) na rzecz hostowania aplikacji frontowej satycznej na S3.
-- Zrezygnowaliśmy z cognito i api gateway z uwagi na jeden serwis backendowy (a więc api gateway uznaliśmy za zbędny, jednak zapoznaliśmy się z jego częścią teoretyczną).
+- Zrezygnowaliśmy z cognito i api gateway (brak zasobów do wykorzystania w celu ich implementacji, zapoznaliśmy się jednak od strony teoretycznej jak je zaimplementować i w jaki sposób one działają).
 
 ### Konfiguracja Bazy Danych
 
