@@ -104,3 +104,8 @@ Skonfigurowany został odpowiedni plik `environment.prod.ts` posiadający adres 
 ## Wideoprezentacja
 
 https://www.youtube.com/watch?v=kbneUG3hR0I
+
+## Wnioski
+
+
+
